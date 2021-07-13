@@ -7,7 +7,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\Entity\\":"src/Entity"
+            "App\\Entity\\":"src/Entity",
+            "App\\Routing\\":"src/Routing",
+            "App\\Controller\\":"src/Controller"
         }
     }
 }
