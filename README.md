@@ -1,4 +1,4 @@
-# MonPassePartout
+# Blog
 
 Il s'agit d'un blog développés sans Framework.
 

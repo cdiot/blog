@@ -19,7 +19,7 @@ class Post extends Entity
   /**
    * @var string
    */
-  private $resum;
+  private $excerpt;
 
   /**
    * @var string
@@ -71,17 +71,17 @@ class Post extends Entity
   /**
    * @return string
    */
-  public function getResum(): string
+  public function getExcerpt(): string
   {
-    return $this->resum;
+    return $this->excerpt;
   }
 
   /**
-   * @param string $resum
+   * @param string $excerpt
    */
-  public function setResum(string $resum): void
+  public function setExcerpt(string $excerpt): void
   {
-    $this->resum = $resum;
+    $this->excerpt = $excerpt;
   }
 
   /**

@@ -5,15 +5,15 @@ namespace App\Controller;
 /**
  * Blog Controller 
  */
-class BlogController
+class BlogController extends Controller
 {
     public function index()
     {
-        echo 'posts';
+        return $this->view('blog/index');
     }
 
     public function show(int $id)
     {
-        echo $id;
+        return $this->view('blog/show', ['id' => $id]);
     }
 }

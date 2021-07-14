@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}post
+{% endblock %}
+
+{% block content %}
+
+	<section>
+		<h1>title{{ id }}</h1>
+		<small class="text-info">Publié le publishedAt</small>
+		<p>content{{ id }}</p>
+		<a href="#" class="btn btn-secondary">Retourner en arrière</a>
+	</section>
+
+{% endblock %}
