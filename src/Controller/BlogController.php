@@ -14,6 +14,6 @@ class BlogController extends Controller
 
     public function show(int $id)
     {
-        return $this->view('blog/index', ['id' => $id]);
+        return $this->view('blog/show', ['id' => $id]);
     }
 }

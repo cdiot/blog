@@ -12,7 +12,7 @@ class Controller
 {
     public function view(string $path, array $datas = [])
     {
-        $loader = new FilesystemLoader('/templates');
+        $loader = new FilesystemLoader('../templates');
         $twig = new Environment($loader, [
             'cache' => false,
         ]);
