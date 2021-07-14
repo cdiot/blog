@@ -5,14 +5,22 @@
 
 {% block content %}
 
-	<section>
-		<h1>Les derniers articles</h1>
-		<div class="card mb-3">
-			<div class="card-body">
-				<h2>titre</h2>
-				<small class="text-info">Publié le publishedAt</small>
-				<p>excerpt</p>
-			</div>
+	<section class="row">
+		<div class="col-md-8">
+			<h1>Liste des articles</h1>
+			{% for post in posts %}
+				<div class="card mb-3">
+					<div class="card-body">
+						<h2>{{ post.title }}</h2>
+						<small class="text-info">Publié le
+							{{ post.publishedAt|date("d/m/Y") }}
+							Par
+							{{ post.firstname }}</small>
+						<p>{{ post.excerpt }}</p>
+						<a href="/posts/{{ post.id }}" class="btn btn-primary">Lire l'article</a>
+					</div>
+				</div>
+			{% endfor %}
 		</div>
 	</section>
 

@@ -5,11 +5,35 @@
 
 {% block content %}
 
-	<section>
-		<h1>title{{ id }}</h1>
-		<small class="text-info">Publié le publishedAt</small>
-		<p>content{{ id }}</p>
-		<a href="#" class="btn btn-secondary">Retourner en arrière</a>
+	<section class="row">
+		<div class="col-md-8">
+			<h1>{{ post.title }}</h1>
+			<small class="text-info">Publié le
+				{{ post.publishedAt|date("d/m/Y") }}
+				Par
+				{{ post.firstname }}</small>
+			<p>{{ post.content }}</p>
+			<a href="/" class="btn btn-secondary">Retourner en arrière</a>
+		</div>
+	</section>
+
+	<section class="row">
+		<h2>Liste des commentaires</h2>
+		{% for comment in comments %}
+		{% if comment.approvement == 1 %}
+			<div class="card mb-3">
+				<div class="card-body">
+					<span class="text-info">Ajouté le
+						{{ comment.createdAt|date("d/m/Y") }}
+						Par
+						{{ comment.firstname }}</span>
+					<p>{{ comment.content }}</p>
+				</div>
+			</div>
+			{% endif %}
+		{% else %}
+			Aucun commentaire.
+		{% endfor %}
 	</section>
 
 {% endblock %}

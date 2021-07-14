@@ -103,7 +103,7 @@ class Post extends Entity
   /**
    * @return DateTime
    */
-  public function getPublishedAt(): DateTime
+  public function getPublishedAt()
   {
     return $this->publishedAt;
   }
@@ -111,7 +111,7 @@ class Post extends Entity
   /**
    * @param DateTime $publishedAt
    */
-  public function setPublishedAt(DateTime $publishedAt): void
+  public function setPublishedAt($publishedAt): void
   {
     $this->publishedAt = $publishedAt;
   }
