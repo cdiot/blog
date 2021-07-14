@@ -71,7 +71,7 @@ class Comment extends Entity
   /**
    * @return Datetime
    */
-  public function getCreatedAt(): DateTime
+  public function getCreatedAt()
   {
     return $this->createdAt;
   }

@@ -11,7 +11,7 @@ $dotenv->load();
 $router = new Router($_GET['url']);
 
 $router->add(new Route('/', 'App\Controller\BlogController@index', 'GET'));
-$router->add(new Route('/home/:id', 'App\Controller\BlogController@show', 'GET', ['id', '[a-z\-0-9]+']));
+$router->add(new Route('/posts/:id', 'App\Controller\BlogController@show', 'GET', ['id', '[0-9]+']));
 
 try {
     $router->getCompiledRoutes();
