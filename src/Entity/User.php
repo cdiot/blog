@@ -32,7 +32,7 @@ class User extends Entity
   /**
    * @var bool
    */
-  private $roles;
+  private $role;
 
   /**
    * @return int
@@ -117,16 +117,16 @@ class User extends Entity
   /**
    * @return bool
    */
-  public function getRoles(): bool
+  public function getRole(): bool
   {
-    return $this->roles;
+    return $this->role;
   }
 
   /**
-   * @param string $roles
+   * @param string $role
    */
-  public function setRoles(bool $roles): void
+  public function setRole(bool $role): void
   {
-    $this->roles = $roles;
+    $this->role = $role;
   }
 }
