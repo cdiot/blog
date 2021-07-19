@@ -11,7 +11,8 @@
             "App\\Entity\\":"src/Entity",
             "App\\Manager\\":"src/Manager",
             "App\\Routing\\":"src/Routing",
-            "App\\Controller\\":"src/Controller"
+            "App\\Controller\\":"src/Controller",
+            "App\\Http\\":"src/Http"
         }
     }
 }
