@@ -8,7 +8,7 @@ use Twig\Environment;
 /**
  * Controller 
  */
-class Controller
+abstract class Controller
 {
     public function view(string $path, array $datas = [])
     {
