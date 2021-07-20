@@ -33,11 +33,11 @@ class UserManager extends Manager
      * Register User
      *
      * @param User $user
-     * @return void Returns an array of Category objects
+     * @return void
      */
     public function add(User $user): void
     {
-        $req = $this->db->pdo()->prepare('INSERT INTO user(firstname, lastname, mail, password, role) VALUES(:firstname, :lastname, :mail, :password, 0)');
+        $req = $this->db->pdo()->prepare('INSERT INTO users(firstname, lastname, mail, password, role) VALUES(:firstname, :lastname, :mail, :password, 0)');
         $req->bindValue(':firstname', $user->getFirstname());
         $req->bindValue(':lastname', $user->getLastname());
         $req->bindValue(':mail', $user->getMail());
