@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}S'inscrire
+{% endblock %}
+
+{% block content %}
+	<section class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<h1 class="h3 mb-4">Inscription</h1>
+				<!-- Form -->
+				<form
+					method="POST" action="/register">
+					<!-- Firstname input -->
+					<div class="mb-3">
+						<label for="firstname" class="form-label">Prenom</label>
+						<input type="text" name="firstname" class="form-control" id="firstname"/>
+					</div>
+					<!-- Firstname input -->
+					<!-- Lastname input -->
+					<div class="mb-3">
+						<label for="lastname" class="form-label">Nom</label>
+						<input type="text" name="lastname" class="form-control" id="lastname"/>
+					</div>
+					<!-- Lastname input -->
+					<!-- Mail input -->
+					<div class="mb-3">
+						<label for="mail" class="form-label">Adresse Mail</label>
+						<input type="mail" name="mail" class="form-control" id="mail"/>
+					</div>
+					<!-- Mail input -->
+					<!-- Password input -->
+					<div class="mb-3">
+						<label for="password" class="form-label">Mot de passe</label>
+						<input type="password" name="password" class="form-control" id="password"/>
+					</div>
+					<!-- Password input -->
+					<!-- Submit button -->
+					<input
+					type="submit" class="btn btn-primary" value="S'inscrire"/>
+				<!-- Submit button -->
+				</form>
+				<!-- Form -->
+				<hr>
+				<!-- Register link -->
+				<h2 class="h4 text-center my-4">Déja inscrit</h2>
+				<div class="form-text mb-4">
+					<p>N'attendez plus :
+						<a href="/login">Connectez-vous maintenant</a>
+					</p>
+				</div>
+				<!-- Register link -->
+			</div>
+		</div>
+	</section>
+{% endblock %}

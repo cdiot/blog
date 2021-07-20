@@ -17,7 +17,7 @@ class SecurityController extends Controller
             $request = new Request();
             $user = $UserManager->findOneByMail($_POST['mail']);
             if($user) {
-                if(password_verify($_POST['password'], $user->getPassword())) {
+                if(password_verify($request->getPost('password'), $user->getPassword())) {
                     $request->setSession('auth',  $user->getMail());
                     $request->setSession('admin', $user->getRole());
                     return header('Location: /admin/posts');
