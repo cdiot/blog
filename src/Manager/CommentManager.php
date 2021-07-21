@@ -10,7 +10,6 @@ use PDO;
  */
 class CommentManager extends Manager
 {
-
     /**
      * Return all Comments by Post
      * 
@@ -36,7 +35,7 @@ class CommentManager extends Manager
      */
     public function add(Comment $comment): void
     {
-        $req = $this->db->pdo()->prepare('INSERT INTO comment(content, createdAt, isValid, postId, userId) VALUES(:content, NOW(), 0, :postId, :userId)');
+        $req = $this->db->pdo()->prepare('INSERT INTO comment(content, createdAt, approvement, postId, userId) VALUES(:content, NOW(), 0, :postId, :userId)');
         $req->bindValue(':content', $comment->getContent());
         $req->bindValue(':postId', $comment->getPostId());
         $req->bindValue(':userId', $comment->getUserId());
@@ -44,7 +43,7 @@ class CommentManager extends Manager
     }
 
      /**
-     * Update a Comment
+     * Approve a Comment
      *
      * @param Comment $comment
      * @return void
