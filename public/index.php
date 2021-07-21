@@ -12,6 +12,8 @@ $dotenv->load();
 $request = new Request();
 $router = new Router($request->getGet('url'));
 
+$router->add(new Route('/', 'App\Controller\HomeController@index', 'GET'));
+$router->add(new Route('/', 'App\Controller\HomeController@sendMail', 'POST'));
 $router->add(new Route('/login', 'App\Controller\SecurityController@displayLoginForm', 'GET'));
 $router->add(new Route('/login', 'App\Controller\SecurityController@login', 'POST'));
 $router->add(new Route('/register', 'App\Controller\RegisterController@displayRegisterForm', 'GET'));

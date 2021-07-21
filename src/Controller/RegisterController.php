@@ -21,7 +21,7 @@ class RegisterController extends Controller
                 [
                     'firstname' => $request->getPost('firstname'),
                     'lastname' => $request->getPost('lastname'),
-                    'mail' => $request->getPost('mail'),
+                    'mail' => filter_var($request->getPost('mail'), FILTER_VALIDATE_EMAIL),
                     'password' => password_hash($request->getPost('password'), PASSWORD_DEFAULT)
                 ]
             );
