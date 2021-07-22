@@ -66,7 +66,7 @@ class Request
      */
     public function getSession($key)
     {
-        return $_SESSION[$key];
+        return $_SESSION[$key] ?? null;
     }
 
     public function setSession($key, $value)

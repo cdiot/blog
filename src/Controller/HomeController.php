@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\HTTP\Request;
-
 /**
  * Home Controller 
  */
@@ -19,12 +17,10 @@ class HomeController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $request = new Request();
-
-            $firstname = $request->getPost('firstname');
-            $lastname = $request->getPost('lastname');
-            $mail = filter_var($request->getPost('mail'), FILTER_VALIDATE_EMAIL);
-            $subject = $request->getPost('subject');
+            $firstname = $this->request->getPost('firstname');
+            $lastname = $this->request->getPost('lastname');
+            $mail = filter_var($this->request->getPost('mail'), FILTER_VALIDATE_EMAIL);
+            $subject = $this->request->getPost('subject');
 
             // Ecrit et envoie l'email  
             $header  = "MIME-Version: 1.0\r\n";

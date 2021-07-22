@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Manager\UserManager;
-use App\HTTP\Request;
 
 /**
  * Security Controller  
@@ -14,12 +13,12 @@ class SecurityController extends Controller
     {
         if (isset($_POST['mail'])) {
             $UserManager = new UserManager();
-            $request = new Request();
             $user = $UserManager->findOneByMail($_POST['mail']);
             if($user) {
-                if(password_verify($request->getPost('password'), $user->getPassword())) {
-                    $request->setSession('auth',  $user->getMail());
-                    $request->setSession('admin', $user->getRole());
+                if(password_verify($this->request->getPost('password'), $user->getPassword())) {
+                    $this->request->setSession('auth',  $user->getMail());
+                    $this->request->setSession('userId',  $user->getId());
+                    $this->request->setSession('admin', $user->getRole());
                     return header('Location: /admin/posts');
                 } else {
                     echo 'Mot de passe incorrect';

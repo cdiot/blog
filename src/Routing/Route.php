@@ -21,6 +21,11 @@ class Route
     /**
      * @var string
      */
+    private $middleware = null;
+
+    /**
+     * @var string
+     */
     private $method;
 
     /**
@@ -39,10 +44,13 @@ class Route
      * @param string $path The path pattern to match.
      * @param string $callable A action to call.
      */
-    public function __construct(string $path, string $callable, string $method, array $requirements = [])
+    public function __construct(string $path, array $callable, string $method, array $requirements = [])
     {
         $this->setPath($path);
-        $this->callable = $callable;
+        $this->callable = $callable['controller'];
+        if(isset($callable['middleware'])) {
+            $this->middleware = $callable['middleware'];
+        }
         $this->method = $method;
         $this->addRequirements($requirements);
     }
@@ -112,6 +120,10 @@ class Route
      */
     public function compile()
     {
+        if($this->middleware != null) {
+            $middleware = $this->middleware;
+            new $middleware;
+        }
         [$controller, $method] = explode('@', $this->callable, 2);
         return call_user_func_array([new $controller(), $method], $this->matches);
     }

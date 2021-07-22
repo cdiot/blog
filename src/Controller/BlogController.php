@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Manager\PostManager;
 use App\Manager\CommentManager;
 use App\Entity\Comment;
-use App\Http\Request;
 
 /**
  * Blog Controller 
@@ -14,13 +13,12 @@ class BlogController extends Controller
 {
     private $postManager;
     private $commentManager;
-    private $request;
 
     public function __construct()
     {
+        parent::__construct();
         $this->postManager = new PostManager();
         $this->commentManager = new CommentManager();
-        $this->request = new Request();
     }
 
     public function index()
