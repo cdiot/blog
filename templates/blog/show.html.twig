@@ -37,4 +37,29 @@
 		{% endfor %}
 	</section>
 
+	<hr>
+
+	<section class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<h2 class="h3 mb-4">Ajouter un commentaire</h2>
+				<!-- Form -->
+				<form
+					method="POST" action="/posts/{{ post.id }}">
+					<!-- Message input -->
+					<div class="mb-3">
+						<label for="content" class="form-label">Message</label>
+						<textarea id="content" name="content" class="form-control" rows="5" cols="33"></textarea>
+					</div>
+					<!-- Message input -->
+					<!-- Submit button -->
+					<input
+					type="submit" class="btn btn-primary" value="Envoyer"/>
+				<!-- Submit button -->
+				</form>
+				<!-- Form -->
+			</div>
+		</div>
+	</section>
+
 {% endblock %}

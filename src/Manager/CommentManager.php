@@ -11,6 +11,21 @@ use PDO;
 class CommentManager extends Manager
 {
     /**
+     * Return all Comments
+     * 
+     * @param int $postId
+     * @return array
+     */
+    public function findAll(): array
+    {
+        $req = $this->db->pdo()->prepare('SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, c.userId
+        FROM comments as c ORDER BY c.createdAt DESC');
+        $req->execute();
+        $req->setFetchMode(PDO::FETCH_CLASS, Comment::class);
+        $comments = $req->fetchAll();
+        return $comments;
+    }
+    /**
      * Return all Comments by Post
      * 
      * @param int $postId
@@ -35,10 +50,10 @@ class CommentManager extends Manager
      */
     public function add(Comment $comment): void
     {
-        $req = $this->db->pdo()->prepare('INSERT INTO comment(content, createdAt, approvement, postId, userId) VALUES(:content, NOW(), 0, :postId, :userId)');
+        $req = $this->db->pdo()->prepare('INSERT INTO comments(content, createdAt, approvement, postId, userId) VALUES(:content, NOW(), 0, :postId, :userId)');
         $req->bindValue(':content', $comment->getContent());
-        $req->bindValue(':postId', $comment->getPostId());
-        $req->bindValue(':userId', $comment->getUserId());
+        $req->bindValue(':postId', $comment->getPostId(), PDO::PARAM_INT);
+        $req->bindValue(':userId', $comment->getUserId(), PDO::PARAM_INT);
         $req->execute();
     }
 
