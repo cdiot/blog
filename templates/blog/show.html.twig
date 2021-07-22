@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}post
+{% block title %}{{ post.title }}
 {% endblock %}
 
 {% block content %}
@@ -8,32 +8,58 @@
 	<section class="row">
 		<div class="col-md-8">
 			<h1>{{ post.title }}</h1>
-			<small class="text-info">Publié le
+			<small class="text-info">Mise à jour le
 				{{ post.publishedAt|date("d/m/Y") }}
 				Par
 				{{ post.firstname }}</small>
+			<p>{{ post.excerpt }}</p>
 			<p>{{ post.content }}</p>
-			<a href="/" class="btn btn-secondary">Retourner en arrière</a>
+			<a href="/posts" class="btn btn-secondary">Retourner en arrière</a>
 		</div>
 	</section>
 
 	<section class="row">
 		<h2>Liste des commentaires</h2>
 		{% for comment in comments %}
-		{% if comment.approvement == 1 %}
-			<div class="card mb-3">
-				<div class="card-body">
-					<span class="text-info">Ajouté le
-						{{ comment.createdAt|date("d/m/Y") }}
-						Par
-						{{ comment.firstname }}</span>
-					<p>{{ comment.content }}</p>
+			{% if comment.approvement == 1 %}
+				<div class="card mb-3">
+					<div class="card-body">
+						<span class="text-info">Ajouté le
+							{{ comment.createdAt|date("d/m/Y") }}
+							Par
+							{{ comment.firstname }}</span>
+						<p>{{ comment.content }}</p>
+					</div>
 				</div>
-			</div>
 			{% endif %}
 		{% else %}
 			Aucun commentaire.
 		{% endfor %}
+	</section>
+
+	<hr>
+
+	<section class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<h2 class="h3 mb-4">Ajouter un commentaire</h2>
+				<!-- Form -->
+				<form
+					method="POST" action="/posts/{{ post.id }}">
+					<!-- Message input -->
+					<div class="mb-3">
+						<label for="content" class="form-label">Message</label>
+						<textarea id="content" name="content" class="form-control" rows="5" cols="33"></textarea>
+					</div>
+					<!-- Message input -->
+					<!-- Submit button -->
+					<input
+					type="submit" class="btn btn-primary" value="Envoyer"/>
+				<!-- Submit button -->
+				</form>
+				<!-- Form -->
+			</div>
+		</div>
 	</section>
 
 {% endblock %}
