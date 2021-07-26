@@ -36,7 +36,7 @@ class BlogController extends Controller
     
     public function storeComment($id)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
 
             $comment = new Comment(
                 [

@@ -12,7 +12,7 @@ class RegisterController extends Controller
 {
     public function register()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
             $UserManager = new UserManager();
 
             $user = new User(

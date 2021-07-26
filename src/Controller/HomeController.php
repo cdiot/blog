@@ -15,7 +15,7 @@ class HomeController extends Controller
 
     public function sendMail()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
 
             $firstname = $this->request->getPost('firstname');
             $lastname = $this->request->getPost('lastname');

@@ -18,8 +18,9 @@ class CommentManager extends Manager
      */
     public function findAll(): array
     {
-        $req = $this->db->pdo()->prepare('SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, c.userId
-        FROM comments as c ORDER BY c.createdAt DESC');
+        $req = $this->db->pdo()->prepare('SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, u.firstname, p.title, p.excerpt, p.publishedAt FROM comments as c
+        JOIN users AS u ON c.userId = u.id
+        JOIN posts AS p ON c.postId = p.id WHERE c.approvement = 0 GROUP BY c.postId ORDER BY c.createdAt DESC');
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Comment::class);
         $comments = $req->fetchAll();
@@ -34,7 +35,7 @@ class CommentManager extends Manager
     public function findByPost(int $postId): array
     {
         $req = $this->db->pdo()->prepare('SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, c.userId
-        FROM comments as c WHERE c.postId = :postId ORDER BY c.createdAt DESC');
+        FROM comments as c WHERE c.postId = :postId AND c.approvement = 1 ORDER BY c.createdAt DESC');
         $req->bindValue(':postId', $postId, PDO::PARAM_INT);
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Comment::class);
@@ -57,17 +58,28 @@ class CommentManager extends Manager
         $req->execute();
     }
 
-     /**
+    /**
      * Approve a Comment
      *
      * @param Comment $comment
      * @return void
      */
-     public function approve(Comment $comment): void
-  {
-    $req = $this->db->pdo()->prepare('UPDATE comment SET approvement = :approvement WHERE id = :id');
-    $req->bindValue(':approvement', $comment->getApprovement());
-    $req->bindValue(':id', $comment->getId(), PDO::PARAM_INT);
-    $req->execute();
-  }
+    public function approve(Comment $comment): void
+    {
+        $req = $this->db->pdo()->prepare('UPDATE comments SET approvement = :approvement WHERE id = :id');
+        $req->bindValue(':approvement', $comment->getApprovement());
+        $req->bindValue(':id', $comment->getId(), PDO::PARAM_INT);
+        $req->execute();
+    }
+
+    /**
+     * Delete a Comment
+     *
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $this->db->pdo()->exec('DELETE FROM comments WHERE id = ' . (int) $id);
+    }
 }
