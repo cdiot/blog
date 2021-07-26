@@ -69,7 +69,33 @@
 								{{ comment.firstname }}</span>
 							<p>{{ comment.content }}</p>
 							<hr>
-							
+							<div class="row">
+								<div
+									class="col-6">
+									<!-- Form -->
+									<form
+										method="POST" action="/admin/approve/{{ comment.id }}">
+										<!-- Submit button -->
+										<input
+										type="submit" class="btn btn-primary btn-sm" value="Approuver"/>
+									<!-- Submit button -->
+									</form>
+									<!-- Form -->
+									{{ comment.id }}
+								</div>
+								<div
+									class="col-6">
+									<!-- Form -->
+									<form
+										method="POST" action="/admin/approve/delete/{{ comment.id }}">
+										<!-- Submit button -->
+										<input
+										type="submit" class="btn btn-primary btn-sm" value="Supprimer"/>
+									<!-- Submit button -->
+									</form>
+									<!-- Form -->
+								</div>
+							</div>
 						</div>
 					</div>
 				{% endif %}

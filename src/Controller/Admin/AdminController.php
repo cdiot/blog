@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Controller\Controller;
 use App\Manager\PostManager;
 use App\Entity\Post;
+use App\Entity\Comment;
 use App\Manager\CommentManager;
 
 
@@ -81,6 +82,32 @@ class AdminController extends Controller
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
             if (!empty($id)) {
                 $this->postManager->delete($id);
+                return header('Location: /admin');
+            }
+        }
+    }
+
+    public function approve($id)
+    {
+
+        if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
+            if (!empty($id)) {
+                $commentManager = new CommentManager();
+                $comment = new Comment([
+                    'id' => $id,
+                    'approvement' => 1
+                ]);
+                $commentManager->approve($comment);
+                return header('Location: /admin');
+            }
+        }
+    }
+
+    public function deleteComment($id)
+    {
+        if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
+            if (!empty($id)) {
+                $this->commentManager->delete($id);
                 return header('Location: /admin');
             }
         }

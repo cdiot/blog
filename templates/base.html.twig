@@ -8,7 +8,7 @@
 			{% block title %}{% endblock %}- Blog</title>
 		<!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-		 <script src="https://kit.fontawesome.com/197d1cb87f.js"></script>
+		<script src="https://kit.fontawesome.com/197d1cb87f.js"></script>
 	</head>
 
 	<body>
@@ -24,12 +24,18 @@
 							<li class="nav-item">
 								<a class="nav-link active" aria-current="page" href="/">Accueil</a>
 							</li>
-                            <li class="nav-item">
+							<li class="nav-item">
 								<a class="nav-link" href="/posts">Liste des articles</a>
 							</li>
 						</ul>
 						<span class="navbar-text">
-							<a href="/login">Connexion</a> | <a href="/register">Inscription</a>
+							{% if auth %}
+								<a href="/logout">Deconnexion</a>
+							{% else %}
+								<a href="/login">Connexion</a>
+								|
+								<a href="/register">Inscription</a>
+							{% endif %}
 						</span>
 					</div>
 				</div>
@@ -44,7 +50,8 @@
 				class="bg-light text-center ">
 				<!-- Copyright -->
 				<div class="text-center p-3">
-					Tous droits réservés ©2021 <a class="text-dark" href="#">Blog</a>
+					Tous droits réservés ©2021
+					<a class="text-dark" href="#">Blog</a>
 				</div>
 				<!-- Copyright -->
 			</footer>

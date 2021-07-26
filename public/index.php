@@ -17,6 +17,7 @@ $router->add(new Route('/', ['controller'=>'App\Controller\HomeController@index'
 $router->add(new Route('/', ['controller'=>'App\Controller\HomeController@sendMail'], 'POST'));
 $router->add(new Route('/login', ['controller'=>'App\Controller\SecurityController@displayLoginForm'], 'GET'));
 $router->add(new Route('/login', ['controller'=>'App\Controller\SecurityController@login'], 'POST'));
+$router->add(new Route('/logout', ['controller'=>'App\Controller\SecurityController@logout'], 'GET'));
 $router->add(new Route('/register', ['controller'=>'App\Controller\RegisterController@displayRegisterForm'], 'GET'));
 $router->add(new Route('/register', ['controller'=>'App\Controller\RegisterController@register'], 'POST'));
 $router->add(new Route('/posts', ['controller'=>'App\Controller\BlogController@index'], 'GET'));
@@ -28,6 +29,8 @@ $router->add(new Route('/admin/add', ['controller'=>'App\Controller\Admin\AdminC
 $router->add(new Route('/admin/modify/:id', ['controller'=>'App\Controller\Admin\AdminController@displayModifyForm', 'middleware'=>'App\Http\Middleware\AdminMiddleware'], 'GET', ['id', '[0-9]+']));
 $router->add(new Route('/admin/modify/:id', ['controller'=>'App\Controller\Admin\AdminController@modify', 'middleware'=>'App\Http\Middleware\AdminMiddleware'], 'POST', ['id', '[0-9]+']));
 $router->add(new Route('/admin/delete/:id', ['controller'=>'App\Controller\Admin\AdminController@delete', 'middleware'=>'App\Http\Middleware\AdminMiddleware'], 'POST', ['id', '[0-9]+']));
+$router->add(new Route('/admin/approve/:id', ['controller'=>'App\Controller\Admin\AdminController@approve', 'middleware'=>'App\Http\Middleware\AdminMiddleware'], 'POST', ['id', '[0-9]+']));
+$router->add(new Route('/admin/approve/delete/:id', ['controller'=>'App\Controller\Admin\AdminController@deleteComment', 'middleware'=>'App\Http\Middleware\AdminMiddleware'], 'POST', ['id', '[0-9]+']));
 
 try {
     $router->getCompiledRoutes();
