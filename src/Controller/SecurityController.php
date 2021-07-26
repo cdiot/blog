@@ -19,7 +19,7 @@ class SecurityController extends Controller
                     $this->request->setSession('auth',  $user->getMail());
                     $this->request->setSession('userId',  $user->getId());
                     $this->request->setSession('admin', $user->getRole());
-                    return header('Location: /admin/posts');
+                    return header('Location: /');
                 } else {
                     echo 'Mot de passe incorrect';
                 }

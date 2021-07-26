@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+
+{% block content %}
+
+	<section class="row">
+		<div
+			class="col-md-6 pt-3">
+			<!-- Posts -->
+			<a href="/admin/add/{{ post.id }}" class="btn btn-primary btn-sm">Ajouter un article</a>
+			<h1 class="h2">Liste des articles</h1>
+			{% for post in posts %}
+				<div class="card mb-3">
+					<div class="card-body">
+						<h2>{{ post.title }}</h2>
+						<small class="text-info">Mise à jour le
+							{{ post.publishedAt|date("d/m/Y") }}
+							Par
+							{{ post.firstname }}</small>
+						<p>{{ post.excerpt }}</p>
+						<hr>
+						<div class="row">
+							<div class="col-6">
+								<a href="/admin/modify/{{ post.id }}" class="btn btn-primary btn-sm">Modifier</a>
+							</div>
+							<div
+								class="col-6">
+								<!-- Form -->
+								<form
+									method="POST" action="/admin/delete/{{ post.id }}">
+									<!-- Submit button -->
+									<input
+									type="submit" class="btn btn-primary btn-sm" value="Supprimer"/>
+								<!-- Submit button -->
+								</form>
+								<!-- Form -->
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			<!-- Posts -->
+		</div>
+		<!-- Approve -->
+		<div class="col-md-6 pt-5">
+			<h2>Liste des commentaires à valider</h2>
+			{% for comment in comments %}
+				{% if comment.approvement == 0 %}
+					<div class="card mb-3">
+						<div class="card-body">
+							<span>Article concerné :<br></span>
+							<h1>
+								<a href="/posts/{{ comment.postId }}" class="text-dark">{{ comment.title }}</a>
+							</h1>
+							<small class="text-info">Mise à jour le
+								{{ comment.publishedAt|date("d/m/Y") }}
+								Par
+								{{ comment.firstname }}</small>
+							<p>{{ comment.excerpt }}</p>
+							<p>{{ comment.content }}</p>
+							<hr>
+
+							<span>Commentaire à valider :<br></span>
+							<span class="text-info">Ajouté le
+								{{ comment.createdAt|date("d/m/Y") }}
+								Par
+								{{ comment.firstname }}</span>
+							<p>{{ comment.content }}</p>
+							<hr>
+							
+						</div>
+					</div>
+				{% endif %}
+			{% else %}
+				Aucun commentaire.
+			{% endfor %}
+		</div>
+		<!-- Approve -->
+	</section>
+
+{% endblock %}
