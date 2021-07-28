@@ -1,18 +1,46 @@
 <?php
-
+/**
+ * Home Controller Doc Comment
+ * 
+ * PHP version 7
+ * 
+ * @category Controller
+ * @package  Src/Controller
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
+ */
 namespace App\Controller;
 
 /**
- * Home Controller 
+ * Home Controller Doc Comment
+ * 
+ * Home Controller
+ * 
+ * @category Controller
+ * @package  Src/Controller
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
  */
 class HomeController extends Controller
 {
 
+    /**
+     * Show default page
+     * 
+     * @return [type]
+     */
     public function index()
     {
         return $this->view('home/index');
     }
 
+    /**
+     * Send Mail 
+     * 
+     * @return [type]
+     */
     public function sendMail()
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {

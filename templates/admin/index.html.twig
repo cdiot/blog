@@ -16,9 +16,7 @@
 					<div class="card-body">
 						<h2>{{ post.title }}</h2>
 						<small class="text-info">Mise à jour le
-							{{ post.publishedAt|date("d/m/Y") }}
-							Par
-							{{ post.firstname }}</small>
+							{{ post.publishedAt|date("d/m/Y") }}</small>
 						<p>{{ post.excerpt }}</p>
 						<hr>
 						<div class="row">
@@ -54,12 +52,11 @@
 							<h1>
 								<a href="/posts/{{ comment.postId }}" class="text-dark">{{ comment.title }}</a>
 							</h1>
-							<small class="text-info">Mise à jour le
+							<small class="text-info">Posté le
 								{{ comment.publishedAt|date("d/m/Y") }}
 								Par
 								{{ comment.firstname }}</small>
 							<p>{{ comment.excerpt }}</p>
-							<p>{{ comment.content }}</p>
 							<hr>
 
 							<span>Commentaire à valider :<br></span>
@@ -81,7 +78,6 @@
 									<!-- Submit button -->
 									</form>
 									<!-- Form -->
-									{{ comment.id }}
 								</div>
 								<div
 									class="col-6">

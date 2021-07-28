@@ -1,41 +1,64 @@
 <?php
-
+/**
+ * Comment Manager Doc Comment
+ * 
+ * PHP version 7
+ * 
+ * @category Manager
+ * @package  Src/Manager
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
+ */
 namespace App\Manager;
 
 use App\Entity\Comment;
 use PDO;
 
 /**
+ * Comment Manager Doc Comment
+ * 
  * Queries Manager for Comment.
+ * 
+ * @category Manager
+ * @package  Src/Manager
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
  */
 class CommentManager extends Manager
 {
     /**
      * Return all Comments
      * 
-     * @param int $postId
      * @return array
      */
     public function findAll(): array
     {
-        $req = $this->db->pdo()->prepare('SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, u.firstname, p.title, p.excerpt, p.publishedAt FROM comments as c
+        $req = $this->db->pdo()->prepare(
+            'SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, u.firstname, p.title, p.excerpt, p.publishedAt FROM comments as c
         JOIN users AS u ON c.userId = u.id
-        JOIN posts AS p ON c.postId = p.id WHERE c.approvement = 0 GROUP BY c.postId ORDER BY c.createdAt DESC');
+        JOIN posts AS p ON c.postId = p.id WHERE c.approvement = 0 GROUP BY c.postId ORDER BY c.createdAt DESC'
+        );
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Comment::class);
         $comments = $req->fetchAll();
         return $comments;
     }
+
     /**
      * Return all Comments by Post
      * 
-     * @param int $postId
+     * @param int $postId postId of Comment
+     * 
      * @return array
      */
     public function findByPost(int $postId): array
     {
-        $req = $this->db->pdo()->prepare('SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, c.userId
-        FROM comments as c WHERE c.postId = :postId AND c.approvement = 1 ORDER BY c.createdAt DESC');
+        $req = $this->db->pdo()->prepare(
+            'SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, c.userId
+        FROM comments as c WHERE c.postId = :postId AND c.approvement = 1 ORDER BY c.createdAt DESC'
+        );
         $req->bindValue(':postId', $postId, PDO::PARAM_INT);
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Comment::class);
@@ -46,7 +69,8 @@ class CommentManager extends Manager
     /**
      * Add a Comment
      *
-     * @param Comment $comment
+     * @param Comment $comment instance of Comment
+     * 
      * @return void
      */
     public function add(Comment $comment): void
@@ -61,7 +85,8 @@ class CommentManager extends Manager
     /**
      * Approve a Comment
      *
-     * @param Comment $comment
+     * @param Comment $comment instance of Comment
+     * 
      * @return void
      */
     public function approve(Comment $comment): void
@@ -75,7 +100,8 @@ class CommentManager extends Manager
     /**
      * Delete a Comment
      *
-     * @param int $id
+     * @param int $id id of Comment
+     * 
      * @return void
      */
     public function delete(int $id): void

@@ -1,134 +1,203 @@
 <?php
-
+/**
+ * Comment Entity Doc Comment
+ * 
+ * PHP version 7
+ * 
+ * @category Entity
+ * @package  Src/Entity
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
+ */
 namespace App\Entity;
 
 use DateTime;
 
+/**
+ * Comment Entity Doc Comment
+ * 
+ * Comment Entity
+ * 
+ * @category Entity
+ * @package  Src/Entity
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
+ */
 class Comment extends Entity
 {
-  /**
-   * @var int
-   */
-  private $id;
+    /**
+     * Id of Comment
+     * 
+     * @var int
+     */
+    private $_id;
 
-  /**
-   * @var string
-   */
-  private $content;
+    /**
+     * Content of Comment
+     * 
+     * @var string
+     */
+    private $_content;
 
-  /**
-   * @var DateTime
-   */
-  private $createdAt;
+    /**
+     * CreatedAt of Comment
+     * 
+     * @var DateTime
+     */
+    private $_createdAt;
 
-  /**
-   * @var bool
-   */
-  private $approvement;
+    /**
+     * Approvement of Comment
+     * 
+     * @var bool
+     */
+    private $_approvement;
 
-  /**
-   * @var int
-   */
-  private $postId;
+    /**
+     * PostId of Comment
+     * 
+     * @var int
+     */
+    private $_postId;
 
-  /**
-   * @var int
-   */
-  private $userId;
+    /**
+     * UserId of Comment
+     * 
+     * @var int
+     */
+    private $_userId;
 
-  /**
-   * @return int
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
+    /**
+     * Get id of Comment
+     * 
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->_id;
+    }
 
-  /**
-   * @param int $id
-   */
-  public function setId(int $id): void
-  {
-    $this->id = (int) $id;
-  }
+    /**
+     * Set id of Comment
+     * 
+     * @param int $id id of Comment
+     * 
+     * @return void
+     */
+    public function setId(int $id): void
+    {
+        $this->_id = (int) $id;
+    }
 
-  /**
-   * @return string
-   */
-  public function getContent(): string
-  {
-    return $this->content;
-  }
+    /**
+     * Get content of Comment
+     * 
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->_content;
+    }
 
-  /**
-   * @param string $content
-   */
-  public function setContent(string $content): void
-  {
-    $this->content = $content;
-  }
+    /**
+     * Set content of Comment
+     * 
+     * @param string $content content of Comment
+     * 
+     * @return void
+     */
+    public function setContent(string $content): void
+    {
+        $this->_content = $content;
+    }
 
-  /**
-   * @return Datetime
-   */
-  public function getCreatedAt()
-  {
-    return $this->createdAt;
-  }
+    /**
+     * Get createdAt of Comment
+     * 
+     * @return Datetime
+     */
+    public function getCreatedAt()
+    {
+        return $this->_createdAt;
+    }
 
-  /**
-   * @param Datetime $createdAt
-   */
-  public function setCreatedAt(\DateTime $createdAt): void
-  {
-    $this->createdAt = $createdAt;
-  }
+    /**
+     * Set createdAd of Comment
+     * 
+     * @param Datetime $createdAt createdAt of Comment
+     * 
+     * @return void
+     */
+    public function setCreatedAt(\DateTime $createdAt): void
+    {
+        $this->_createdAt = $createdAt;
+    }
 
-  /**
-   * @return bool
-   */
-  public function getApprovement(): bool
-  {
-    return $this->approvement;
-  }
+    /**
+     * Get approvement of Comment
+     * 
+     * @return bool
+     */
+    public function getApprovement(): bool
+    {
+        return $this->_approvement;
+    }
 
-  /**
-   * @param bool $approvement
-   */
-  public function setApprovement(bool $approvement): void
-  {
-    $this->approvement = $approvement;
-  }
+    /**
+     * Set approvement of Comment
+     * 
+     * @param bool $approvement approvement of Comment
+     * 
+     * @return void
+     */
+    public function setApprovement(bool $approvement): void
+    {
+        $this->_approvement = $approvement;
+    }
 
-  /**
-   * @return int
-   */
-  public function getPostId()
-  {
-    return $this->postId;
-  }
+    /**
+     * Get postId of Comment
+     * 
+     * @return int
+     */
+    public function getPostId()
+    {
+        return $this->_postId;
+    }
 
-  /**
-   * @param int $postId
-   */
-  public function setPostId(int $postId): void
-  {
-    $this->postId = $postId;
-  }
+    /**
+     * Set postId of Comment
+     * 
+     * @param int $postId postId of Comment
+     * 
+     * @return void
+     */
+    public function setPostId(int $postId): void
+    {
+        $this->_postId = $postId;
+    }
 
-  /**
-   * @return int
-   */
-  public function getUserId()
-  {
-    return $this->userId;
-  }
+    /**
+     * Get userId of Comment
+     * 
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->_userId;
+    }
 
-  /**
-   * @param int $userId
-   */
-  public function setUserId(int $userId): void
-  {
-    $this->userId = $userId;
-  }
+    /**
+     * Set UserId of Comment
+     * 
+     * @param int $userId userId of Comment
+     * 
+     * @return void
+     */
+    public function setUserId(int $userId): void
+    {
+        $this->_userId = $userId;
+    }
 }

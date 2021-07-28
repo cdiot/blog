@@ -1,12 +1,30 @@
 <?php
-
+/**
+ * Post Manager Doc Comment
+ * 
+ * PHP version 7
+ * 
+ * @category Manager
+ * @package  Src/Manager
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
+ */
 namespace App\Manager;
 
 use App\Entity\Post;
 use PDO;
 
 /**
+ * Post Manager Doc Comment
+ * 
  * Queries Manager for Post.
+ * 
+ * @category Manager
+ * @package  Src/Manager
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
  */
 class PostManager extends Manager
 {
@@ -14,14 +32,14 @@ class PostManager extends Manager
     /**
      * Return all Posts
      * 
-     * @param int $first
-     * @param int $perPage
      * @return array
      */
     public function findAll(): array
     {
-        $req = $this->db->pdo()->prepare('SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname
-        FROM posts as p INNER JOIN users as u ON p.userId = u.id ORDER BY p.publishedAt DESC');
+        $req = $this->db->pdo()->prepare(
+            'SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname
+        FROM posts as p INNER JOIN users as u ON p.userId = u.id ORDER BY p.publishedAt DESC'
+        );
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Post::class);
         $posts = $req->fetchAll();
@@ -31,13 +49,16 @@ class PostManager extends Manager
     /**
      * Return one Post
      *
-     * @param int $id
+     * @param int $id id of Post
+     * 
      * @return object|bool
      */
     public function find(int $id): object
     {
-        $req = $this->db->pdo()->prepare('SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname
-        FROM posts as p INNER JOIN users as u ON p.userId = u.id WHERE p.id = :id');
+        $req = $this->db->pdo()->prepare(
+            'SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname
+        FROM posts as p INNER JOIN users as u ON p.userId = u.id WHERE p.id = :id'
+        );
         $req->bindValue(':id', (int) $id, PDO::PARAM_INT);
         $req->execute();
         $req->setFetchMode(PDO::FETCH_CLASS, Post::class);
@@ -48,7 +69,8 @@ class PostManager extends Manager
     /**
      * Add a Post
      *
-     * @param Post $post
+     * @param Post $post instance of Post
+     * 
      * @return void
      */
     public function add(Post $post): void
@@ -64,7 +86,8 @@ class PostManager extends Manager
     /**
      * Update a Post
      *
-     * @param Post $post
+     * @param Post $post instance of Post
+     * 
      * @return void
      */
     public function update(Post $post): void
@@ -81,7 +104,8 @@ class PostManager extends Manager
     /**
      * Delete a Post
      *
-     * @param int $id
+     * @param int $id id of Post
+     * 
      * @return void
      */
     public function delete(int $id): void
