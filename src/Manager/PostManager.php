@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Post Manager Doc Comment
  * 
@@ -10,9 +11,10 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Manager;
 
-use App\Entity\Post;
+use App\Entity\{User, Post};
 use PDO;
 
 /**
@@ -37,12 +39,15 @@ class PostManager extends Manager
     public function findAll(): array
     {
         $req = $this->db->pdo()->prepare(
-            'SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname
-        FROM posts as p INNER JOIN users as u ON p.userId = u.id ORDER BY p.publishedAt DESC'
+            'SELECT * FROM posts as p ORDER BY p.publishedAt DESC'
         );
         $req->execute();
-        $req->setFetchMode(PDO::FETCH_CLASS, Post::class);
-        $posts = $req->fetchAll();
+        $req->setFetchMode(PDO::FETCH_PROPS_LATE);
+        $postsData = $req->fetchAll();
+        $posts = [];
+        foreach ($postsData as $post) {
+            $posts[] = new POST($post);
+        }
         return $posts;
     }
 
@@ -56,13 +61,18 @@ class PostManager extends Manager
     public function find(int $id): object
     {
         $req = $this->db->pdo()->prepare(
-            'SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname
-        FROM posts as p INNER JOIN users as u ON p.userId = u.id WHERE p.id = :id'
+            'SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname, u.lastname
+            FROM posts as p 
+            INNER JOIN users as u ON p.userId = u.id WHERE p.id = :id'
         );
         $req->bindValue(':id', (int) $id, PDO::PARAM_INT);
         $req->execute();
-        $req->setFetchMode(PDO::FETCH_CLASS, Post::class);
-        $post = $req->fetch();
+        $req->setFetchMode(PDO::FETCH_PROPS_LATE);
+        $postData = $req->fetch();
+        $user = new User(['firstname' => $postData['firstname'], 'lastname' => $postData['lastname']]);
+        $postData['author'] = $user;
+        $post = new Post($postData);
+
         return $post;
     }
 

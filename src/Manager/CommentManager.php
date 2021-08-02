@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comment Manager Doc Comment
  * 
@@ -10,9 +11,10 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Manager;
 
-use App\Entity\Comment;
+use App\Entity\{User, Comment, Post};
 use PDO;
 
 /**
@@ -36,13 +38,21 @@ class CommentManager extends Manager
     public function findAll(): array
     {
         $req = $this->db->pdo()->prepare(
-            'SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, u.firstname, p.title, p.excerpt, p.publishedAt FROM comments as c
-        JOIN users AS u ON c.userId = u.id
-        JOIN posts AS p ON c.postId = p.id WHERE c.approvement = 0 GROUP BY c.postId ORDER BY c.createdAt DESC'
+            'SELECT c.id, c.message, c.createdAt, c.approvement, c.postId, u.firstname, u.lastname, p.title, p.excerpt, p.publishedAt FROM comments as c
+        INNER JOIN users AS u ON c.userId = u.id
+        INNER JOIN posts AS p ON c.postId = p.id WHERE c.approvement = 0 
+        ORDER BY c.createdAt DESC'
         );
         $req->execute();
-        $req->setFetchMode(PDO::FETCH_CLASS, Comment::class);
-        $comments = $req->fetchAll();
+        $commentsData = $req->fetchAll();
+        $comments = [];
+        foreach ($commentsData as $comment) {
+            $user = new User(['firstname' => $comment['firstname'], 'lastname' => $comment['lastname']]);
+            $post = new Post(['title' => $comment['title'], 'publishedAt' => $comment['publishedAt'], 'excerpt' => $comment['excerpt']]);
+            $comment['user'] = $user;
+            $comment['post'] = $post;
+            $comments[] = new Comment($comment);
+        }
         return $comments;
     }
 
@@ -56,13 +66,20 @@ class CommentManager extends Manager
     public function findByPost(int $postId): array
     {
         $req = $this->db->pdo()->prepare(
-            'SELECT c.id, c.content, c.createdAt, c.approvement, c.postId, c.userId
-        FROM comments as c WHERE c.postId = :postId AND c.approvement = 1 ORDER BY c.createdAt DESC'
+            'SELECT * FROM comments as c 
+            INNER JOIN users u ON c.userId = u.id WHERE c.postId = :postId 
+            AND c.approvement = 1 ORDER BY c.createdAt DESC'
         );
         $req->bindValue(':postId', $postId, PDO::PARAM_INT);
         $req->execute();
-        $req->setFetchMode(PDO::FETCH_CLASS, Comment::class);
-        $comments = $req->fetchAll();
+        $req->setFetchMode(PDO::FETCH_PROPS_LATE);
+        $commentsData = $req->fetchAll();
+        $comments = [];
+        foreach ($commentsData as $comment) {
+            $user = new User(['firstname' => $comment['firstname'], 'lastname' => $comment['lastname']]);
+            $comment['user'] = $user;
+            $comments[] = new Comment($comment);
+        }
         return $comments;
     }
 
@@ -75,8 +92,8 @@ class CommentManager extends Manager
      */
     public function add(Comment $comment): void
     {
-        $req = $this->db->pdo()->prepare('INSERT INTO comments(content, createdAt, approvement, postId, userId) VALUES(:content, NOW(), 0, :postId, :userId)');
-        $req->bindValue(':content', $comment->getContent());
+        $req = $this->db->pdo()->prepare('INSERT INTO comments(message, createdAt, approvement, postId, userId) VALUES(:message, NOW(), 0, :postId, :userId)');
+        $req->bindValue(':message', $comment->getMessage());
         $req->bindValue(':postId', $comment->getPostId(), PDO::PARAM_INT);
         $req->bindValue(':userId', $comment->getUserId(), PDO::PARAM_INT);
         $req->execute();

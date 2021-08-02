@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comment Entity Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Entity;
 
 use DateTime;
@@ -35,11 +37,11 @@ class Comment extends Entity
     private $_id;
 
     /**
-     * Content of Comment
+     * Message of Comment
      * 
      * @var string
      */
-    private $_content;
+    private $_message;
 
     /**
      * CreatedAt of Comment
@@ -70,6 +72,20 @@ class Comment extends Entity
     private $_userId;
 
     /**
+     * User of Comment
+     * 
+     * @var User
+     */
+    private $_user;
+
+    /**
+     * Post of Comment
+     * 
+     * @var Post
+     */
+    private $_post;
+
+    /**
      * Get id of Comment
      * 
      * @return int
@@ -92,31 +108,31 @@ class Comment extends Entity
     }
 
     /**
-     * Get content of Comment
+     * Get message of Comment
      * 
      * @return string
      */
-    public function getContent(): string
+    public function getMessage(): string
     {
-        return $this->_content;
+        return $this->_message;
     }
 
     /**
-     * Set content of Comment
+     * Set message of Comment
      * 
-     * @param string $content content of Comment
+     * @param string $message message of Comment
      * 
      * @return void
      */
-    public function setContent(string $content): void
+    public function setMessage(string $message): void
     {
-        $this->_content = $content;
+        $this->_message = $message;
     }
 
     /**
      * Get createdAt of Comment
      * 
-     * @return Datetime
+     * @return string
      */
     public function getCreatedAt()
     {
@@ -126,11 +142,11 @@ class Comment extends Entity
     /**
      * Set createdAd of Comment
      * 
-     * @param Datetime $createdAt createdAt of Comment
+     * @param string $createdAt createdAt of Comment
      * 
      * @return void
      */
-    public function setCreatedAt(\DateTime $createdAt): void
+    public function setCreatedAt(string $createdAt): void
     {
         $this->_createdAt = $createdAt;
     }
@@ -199,5 +215,49 @@ class Comment extends Entity
     public function setUserId(int $userId): void
     {
         $this->_userId = $userId;
+    }
+
+    /**
+     * Get author of Post
+     * 
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->_user;
+    }
+
+    /**
+     * Set user of comment
+     * 
+     * @param User $user user of Post
+     * 
+     * @return void
+     */
+    public function setUser(User $user)
+    {
+        $this->_user = $user;
+    }
+
+    /**
+     * Get post of comment
+     * 
+     * @return Post
+     */
+    public function getPost()
+    {
+        return $this->_post;
+    }
+
+    /**
+     * Set post of Comment
+     * 
+     * @param Post $post post of comment
+     * 
+     * @return void
+     */
+    public function setPost(Post $post)
+    {
+        $this->_post = $post;
     }
 }

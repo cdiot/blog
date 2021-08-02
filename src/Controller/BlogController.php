@@ -45,7 +45,7 @@ class BlogController extends Controller
     /**
      * Show the list of all Posts
      * 
-     * @return [type]
+     * @return string
      */
     public function index()
     {
@@ -58,7 +58,7 @@ class BlogController extends Controller
      * 
      * @param int $id id of post
      * 
-     * @return [type]
+     * @return string
      */
     public function show(int $id)
     {
@@ -72,7 +72,7 @@ class BlogController extends Controller
      * 
      * @param int $id id of post
      * 
-     * @return [type]
+     * @return void
      */
     public function storeComment(int $id)
     {
@@ -80,13 +80,13 @@ class BlogController extends Controller
 
             $comment = new Comment(
                 [
-                    'content' => $this->request->getPost('content'),
+                    'message' => $this->request->getPost('message'),
                     'postId' => $id,
                     'userId' => $this->request->getSession('userId')
                 ]
             );
             $commentManager = new CommentManager();
-            if (!empty($this->request->getPost('content')) && !empty($id) && !empty($this->request->getSession('userId'))) {
+            if (!empty($this->request->getPost('message')) && !empty($id) && !empty($this->request->getSession('userId'))) {
                 $commentManager->add($comment);
                 return header('Location: /posts');
             } else {

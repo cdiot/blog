@@ -42,8 +42,9 @@ class UserManager extends Manager
         $req = $this->db->pdo()->prepare('SELECT * FROM users WHERE mail = :mail');
         $req->bindValue(':mail', $mail);
         $req->execute();
-        $req->setFetchMode(PDO::FETCH_CLASS, User::class);
-        $user = $req->fetch();
+        $req->setFetchMode(PDO::FETCH_PROPS_LATE);
+        $userData = $req->fetch();
+        $user = new User($userData);
 
         return $user;
     }

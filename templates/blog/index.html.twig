@@ -11,12 +11,12 @@
 			{% for post in posts %}
 				<div class="card mb-3">
 					<div class="card-body">
-						<h2>{{ post.title }}</h2>
+						<h2>{{ post.getTitle() }}</h2>
 						<small class="text-info">Mise à jour le
-							{{ post.publishedAt|date("d/m/Y") }}
+							{{ post.getPublishedAt()|date("d/m/Y") }}
 						</small>
-						<p>{{ post.excerpt }}</p>
-						<a href="/posts/{{ post.id }}" class="btn btn-primary">Lire l'article</a>
+						<p>{{ post.getExcerpt() }}</p>
+						<a href="/posts/{{ post.getId() }}" class="btn btn-primary">Lire l'article</a>
 					</div>
 				</div>
 			{% endfor %}

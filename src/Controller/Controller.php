@@ -46,7 +46,7 @@ abstract class Controller
      * @param string $path  Path to pass
      * @param array  $datas Datas to pass
      * 
-     * @return [type]
+     * @return void
      */
     public function view(string $path, array $datas = [])
     {
