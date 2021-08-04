@@ -39,13 +39,6 @@ class Request
      * @var array
      */
     private $_post;
-    
-    /**
-     * FILES
-     * 
-     * @var array
-     */
-    private $_files;
 
     /**
      * REQUEST
@@ -68,7 +61,6 @@ class Request
     {
         $this->_get = $_GET;
         $this->_post = $_POST;
-        $this->_files = $_FILES;
         $this->_request = $_REQUEST;
         $this->_server = $_SERVER;
     }
@@ -120,44 +112,6 @@ class Request
     public function setSession($key, $value)
     {
         $_SESSION[$key] = $value;
-    }
-
-    /**
-     * Get Cookie
-     * 
-     * @param mixed $key name
-     * 
-     * @return string
-     */
-    public function getCookie($key)
-    {
-        return $this->_cookie[$key];
-    }
-
-    /**
-     * Set Cookie
-     * 
-     * @param mixed $key   name
-     * @param mixed $value value of name
-     * @param mixed $exp   expires
-     * 
-     * @return [type]
-     */
-    public function setCookie($key, $value, $exp)
-    {
-        setcookie($key, $value, $exp);
-    }
-
-    /**
-     * Get FILES
-     * 
-     * @param mixed $key name
-     * 
-     * @return string
-     */
-    public function getFiles($key)
-    {
-        return $this->_files[$key];
     }
 
     /**

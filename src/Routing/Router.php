@@ -12,6 +12,7 @@
  */
 namespace App\Routing;
 
+use App\Http\Request;
 use App\Routing\Route;
 use App\Routing\Exception\RouteNotFoundException;
 
@@ -28,6 +29,12 @@ use App\Routing\Exception\RouteNotFoundException;
  */
 class Router
 {
+    /**
+     * Request
+     * 
+     * @var Request
+     */
+    protected $request;
 
     /**
      * Url 
@@ -50,6 +57,7 @@ class Router
      */
     public function __construct(string $url)
     {
+        $this->request = new Request;
         $this->_url = $url;
     }
 
@@ -74,10 +82,10 @@ class Router
      */
     public function getCompiledRoutes(): Route
     {
-        if (!isset($this->_routes[$_SERVER['REQUEST_METHOD']])) {
+        if (!isset($this->_routes[$this->request->getServer('REQUEST_METHOD')])) {
             throw new RouteNotFoundException('REQUEST_METHOD does not exist');
         }
-        foreach ($this->_routes[$_SERVER['REQUEST_METHOD']] as $route) {
+        foreach ($this->_routes[$this->request->getServer('REQUEST_METHOD')] as $route) {
             if ($route->match($this->_url)) {
                 $route->compile();
                 return $route;

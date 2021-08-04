@@ -6,10 +6,10 @@ This is a blog developed without a framework.
 
 ### Pré-requis
 
-  * PHP 7.4
-  * MySQL
-  * Apache
-  * Composer
+*   PHP 7.4
+*   MySQL
+*   Apache
+*   Composer
 
 ### Téléchargement 
 
@@ -30,7 +30,7 @@ composer install
 
 ### Base De Données
 
-To install the database, copy the contents of the file to a blank database of your DBMS ```blog.sql``` found in the bdd folder at the root of the project.
+To install the database, doawload the file at this adress ```blog.sql``` and copy the contents of the file to a blank database of your DBMS ```blog.sql``` found in the bdd folder at the root of the project.
 
 You can configure environment variables by renaming the .env.example file to
 .env and enter your database login credentials.
@@ -39,8 +39,8 @@ You can configure environment variables by renaming the .env.example file to
 
 Click on the links below to download sendmail.exe. Once unzip copy the content at the root of wamp in a folder called sendmail. 
 
-   * Fake Sendmail : http://glob.com.au/sendmail/
-
+*   Fake Sendmail : http://glob.com.au/sendmail/
+ 
 Then go to the sendmail folder then in the sendmail.ini file enter the information below
 and replace the information with yours:
 

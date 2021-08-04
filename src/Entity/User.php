@@ -65,7 +65,7 @@ class User extends Entity
      * 
      * @var bool
      */
-    private $_isAdmin;
+    private $_admin;
 
     /**
      * Get id of User
@@ -182,20 +182,20 @@ class User extends Entity
      * 
      * @return bool
      */
-    public function getIsAdmin(): bool
+    public function isAdmin(): bool
     {
-        return $this->_isAdmin;
+        return $this->_admin;
     }
 
     /**
      * Set Role of User
      * 
-     * @param string $isAdmin role of User
+     * @param string $admin role of User
      * 
      * @return void
      */
-    public function setRole(bool $isAdmin): void
+    public function setAdmin(bool $admin): void
     {
-        $this->_isAdmin = $isAdmin;
+        $this->_isAdmin = $admin;
     }
 }

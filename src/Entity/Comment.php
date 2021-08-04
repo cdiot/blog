@@ -156,7 +156,7 @@ class Comment extends Entity
      * 
      * @return bool
      */
-    public function getHasApprovement(): bool
+    public function hasApprovement(): bool
     {
         return $this->_approvement;
     }
@@ -168,7 +168,7 @@ class Comment extends Entity
      * 
      * @return void
      */
-    public function setHasApprovement(bool $approvement): void
+    public function setApprovement(bool $approvement): void
     {
         $this->_approvement = $approvement;
     }

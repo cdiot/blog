@@ -34,6 +34,7 @@ final class Database
 {
 
     private $_pdo;
+    protected $request;
     private static $_instance = null;
 
     /**
@@ -43,10 +44,10 @@ final class Database
     {
         $this->request = new Request;
         try {
-            $this->_pdo = new PDO('mysql:host=' . $_ENV['HOST'] . '; dbname=' . $_ENV['DB_NAME'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD']);
+            $this->_pdo = new PDO('mysql:host=' . $this->request->getEnv('HOST') . '; dbname=' . $this->request->getEnv('DB_NAME'), $this->request->getEnv('DB_USERNAME'), $this->request->getEnv('DB_PASSWORD'));
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
         } catch (PDOException $error) {
-            echo $error->getMessage();
+            return $error->getMessage();
         }
     }
 

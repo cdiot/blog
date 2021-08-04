@@ -43,7 +43,7 @@ class SecurityController extends Controller
                 if (password_verify($this->request->getPost('password'), $user->getPassword())) {
                     $this->request->setSession('auth',  $user->getMail());
                     $this->request->setSession('userId',  $user->getId());
-                    $this->request->setSession('admin', $user->getIsAdmin());
+                    $this->request->setSession('admin', $user->isAdmin());
                     $this->redirect('/');
                 }
             }
