@@ -1,134 +1,234 @@
 <?php
 
+/**
+ * Post Entity Doc Comment
+ * 
+ * PHP version 7
+ * 
+ * @category Entity
+ * @package  Src/Entity
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
+ */
+
 namespace App\Entity;
 
 use DateTime;
 
+/**
+ * Post Entity Doc Comment
+ * 
+ * Post Entity
+ * 
+ * @category Entity
+ * @package  Src/Entity
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
+ */
 class Post extends Entity
 {
-  /**
-   * @var int
-   */
-  private $id;
+    /**
+     * Id of Post
+     * 
+     * @var int
+     */
+    private $_id;
 
-  /**
-   * @var string
-   */
-  private $title;
+    /**
+     * Title of Post
+     * 
+     * @var string
+     */
+    private $_title;
 
-  /**
-   * @var string
-   */
-  private $excerpt;
+    /**
+     * Except of Post
+     * 
+     * @var string
+     */
+    private $_excerpt;
 
-  /**
-   * @var string
-   */
-  private $content;
+    /**
+     * Content of Post
+     * 
+     * @var string
+     */
+    private $_content;
 
-  /**
-   * @var DateTime
-   */
-  private $publishedAt;
+    /**
+     * PublishedAt of Post
+     * 
+     * @var DateTime
+     */
+    private $_publishedAt;
 
-  /**
-   * @var int
-   */
-  private $userId;
+    /**
+     * UserId of Post
+     * 
+     * @var int
+     */
+    private $_userId;
+    
+    /**
+     * Post's author
+     * 
+     * @var User
+     */
+    private $_author;
 
-  /**
-   * @return int
-   */
-  public function getId(): int
-  {
-    return $this->id;
-  }
+    /**
+     * Get id of Post
+     * 
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->_id;
+    }
 
-  /**
-   * @param int $id
-   */
-  public function setId(int $id): void
-  {
-    $this->id = (int) $id;
-  }
+    /**
+     * Set id of Post
+     * 
+     * @param int $id id of Post
+     * 
+     * @return void
+     */
+    public function setId(int $id): void
+    {
+        $this->_id = (int) $id;
+    }
 
-  /**
-   * @return string
-   */
-  public function getTitle(): string
-  {
-    return $this->title;
-  }
+    /**
+     * Get title of Post
+     * 
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->_title;
+    }
 
-  /**
-   * @param string $title
-   */
-  public function setTitle(string $title): void
-  {
-    $this->title = $title;
-  }
+    /**
+     * Set tilte of Post
+     * 
+     * @param string $title title of Post
+     * 
+     * @return void
+     */
+    public function setTitle(string $title): void
+    {
+        $this->_title = $title;
+    }
 
-  /**
-   * @return string
-   */
-  public function getExcerpt(): string
-  {
-    return $this->excerpt;
-  }
+    /**
+     * Get except of Post
+     * 
+     * @return string
+     */
+    public function getExcerpt(): string
+    {
+        return $this->_excerpt;
+    }
 
-  /**
-   * @param string $excerpt
-   */
-  public function setExcerpt(string $excerpt): void
-  {
-    $this->excerpt = $excerpt;
-  }
+    /**
+     * Set except of Post
+     * 
+     * @param string $excerpt excerpt of Post
+     * 
+     * @return void
+     */
+    public function setExcerpt(string $excerpt): void
+    {
+        $this->_excerpt = $excerpt;
+    }
 
-  /**
-   * @return string
-   */
-  public function getContent(): string
-  {
-    return $this->content;
-  }
+    /**
+     * Get content of Post
+     * 
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->_content;
+    }
 
-  /**
-   * @param string $content
-   */
-  public function setContent(string $content): void
-  {
-    $this->content = $content;
-  }
+    /**
+     * Set content of Post
+     * 
+     * @param string $content content of Post
+     * 
+     * @return void
+     */
+    public function setContent(string $content): void
+    {
+        $this->_content = $content;
+    }
 
-  /**
-   * @return DateTime
-   */
-  public function getPublishedAt()
-  {
-    return $this->publishedAt;
-  }
+    /**
+     * Get publishedAt of Post
+     * 
+     * @return DateTime
+     */
+    public function getPublishedAt()
+    {
+        return $this->_publishedAt;
+    }
 
-  /**
-   * @param DateTime $publishedAt
-   */
-  public function setPublishedAt($publishedAt): void
-  {
-    $this->publishedAt = $publishedAt;
-  }
+    /**
+     * Set publishedAt of Post
+     * 
+     * @param DateTime $publishedAt publishedAt of Post
+     * 
+     * @return void
+     */
+    public function setPublishedAt($publishedAt): void
+    {
+        $this->_publishedAt = $publishedAt;
+    }
 
-  /**
-   * @return int
-   */
-  public function getUserId()
-  {
-    return $this->userId;
-  }
+    /**
+     * Get userId of Post
+     * 
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->_userId;
+    }
 
-  /**
-   * @param int $userId
-   */
-  public function setUserId(int $userId): void
-  {
-    $this->userId = $userId;
-  }
+    /**
+     * Set userId of Post
+     * 
+     * @param int $userId userId of Post
+     * 
+     * @return void
+     */
+    public function setUserId(int $userId): void
+    {
+        $this->_userId = $userId;
+    }
+
+    /**
+     * Get author of Post
+     * 
+     * @return User
+     */
+    public function getAuthor(): User
+    {
+        return $this->_author;
+    }
+
+    /**
+     * Set author of Post
+     * 
+     * @param User $user user of Post
+     * 
+     * @return void
+     */
+    public function setAuthor(User $user)
+    {
+        $this->_author = $user;
+    }
 }

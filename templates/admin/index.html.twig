@@ -9,27 +9,25 @@
 		<div
 			class="col-md-6 pt-3">
 			<!-- Posts -->
-			<a href="/admin/add/{{ post.id }}" class="btn btn-primary btn-sm">Ajouter un article</a>
+			<a href="/admin/add/{{ post.getId }}" class="btn btn-primary btn-sm">Ajouter un article</a>
 			<h1 class="h2">Liste des articles</h1>
 			{% for post in posts %}
 				<div class="card mb-3">
 					<div class="card-body">
-						<h2>{{ post.title }}</h2>
+						<h2><a href="/posts/{{ post.getId() }}" class="text-dark">{{ post.getTitle() }}</a></h2>
 						<small class="text-info">Mise à jour le
-							{{ post.publishedAt|date("d/m/Y") }}
-							Par
-							{{ post.firstname }}</small>
-						<p>{{ post.excerpt }}</p>
+							{{ post.getPublishedAt()|date("d/m/Y") }}</small>
+						<p>{{ post.getExcerpt() }}</p>
 						<hr>
 						<div class="row">
 							<div class="col-6">
-								<a href="/admin/modify/{{ post.id }}" class="btn btn-primary btn-sm">Modifier</a>
+								<a href="/admin/modify/{{ post.getId() }}" class="btn btn-primary btn-sm">Modifier</a>
 							</div>
 							<div
 								class="col-6">
 								<!-- Form -->
 								<form
-									method="POST" action="/admin/delete/{{ post.id }}">
+									method="POST" action="/admin/delete/{{ post.getId() }}">
 									<!-- Submit button -->
 									<input
 									type="submit" class="btn btn-primary btn-sm" value="Supprimer"/>
@@ -47,47 +45,45 @@
 		<div class="col-md-6 pt-5">
 			<h2>Liste des commentaires à valider</h2>
 			{% for comment in comments %}
-				{% if comment.approvement == 0 %}
+				{% if comment.getApprovement() == 0 %}
 					<div class="card mb-3">
 						<div class="card-body">
 							<span>Article concerné :<br></span>
 							<h1>
-								<a href="/posts/{{ comment.postId }}" class="text-dark">{{ comment.title }}</a>
+								<a href="/posts/{{ comment.getPostId() }}" class="text-dark">{{ comment.getPost().getTitle() }}</a>
 							</h1>
 							<small class="text-info">Mise à jour le
-								{{ comment.publishedAt|date("d/m/Y") }}
-								Par
-								{{ comment.firstname }}</small>
-							<p>{{ comment.excerpt }}</p>
-							<p>{{ comment.content }}</p>
+								{{ comment.getPost().getPublishedAt()|date("d/m/Y") }}
+								</small>
+							<p>{{ comment.getPost().getExcerpt() }}</p>
 							<hr>
 
 							<span>Commentaire à valider :<br></span>
 							<span class="text-info">Ajouté le
-								{{ comment.createdAt|date("d/m/Y") }}
+								{{ comment.getCreatedAt()|date("d/m/Y") }}
 								Par
-								{{ comment.firstname }}</span>
-							<p>{{ comment.content }}</p>
+								{{ comment.getUser().getFirstname() }}
+								{{ comment.getUser().getLastname() }}</span>
+							<p>{{ comment.getMessage }}</p>
 							<hr>
 							<div class="row">
 								<div
 									class="col-6">
 									<!-- Form -->
 									<form
-										method="POST" action="/admin/approve/{{ comment.id }}">
+										method="POST" action="/admin/approve/{{ comment.getId() }}">
 										<!-- Submit button -->
 										<input
 										type="submit" class="btn btn-primary btn-sm" value="Approuver"/>
 									<!-- Submit button -->
 									</form>
 									<!-- Form -->
-									{{ comment.id }}
 								</div>
 								<div
 									class="col-6">
 									<!-- Form -->
 									<form
-										method="POST" action="/admin/approve/delete/{{ comment.id }}">
+										method="POST" action="/admin/approve/delete/{{ comment.getId() }}">
 										<!-- Submit button -->
 										<input
 										type="submit" class="btn btn-primary btn-sm" value="Supprimer"/>

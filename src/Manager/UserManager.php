@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * User Manager Doc Comment
+ * 
+ * PHP version 7
+ * 
+ * @category Manager
+ * @package  Src/Manager
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
+ */
 namespace App\Manager;
 
 use App\Entity\User;
@@ -7,7 +17,15 @@ use PDO;
 
 
 /**
- * Queries Manager for User. 
+ * User Manager Doc Comment
+ * 
+ * Queries Manager for User.
+ * 
+ * @category Manager
+ * @package  Src/Manager
+ * @author   cdiot <christopher.diot5@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/cdiot/blog
  */
 class UserManager extends Manager
 {
@@ -15,7 +33,8 @@ class UserManager extends Manager
     /**
      * Return a user found thanks to his email
      *
-     * @param  $username
+     * @param $mail mail of User
+     * 
      * @return mixed
      */
     public function findOneByMail($mail)
@@ -23,8 +42,9 @@ class UserManager extends Manager
         $req = $this->db->pdo()->prepare('SELECT * FROM users WHERE mail = :mail');
         $req->bindValue(':mail', $mail);
         $req->execute();
-        $req->setFetchMode(PDO::FETCH_CLASS, User::class);
-        $user = $req->fetch();
+        $req->setFetchMode(PDO::FETCH_PROPS_LATE);
+        $userData = $req->fetch();
+        $user = new User($userData);
 
         return $user;
     }
@@ -32,7 +52,8 @@ class UserManager extends Manager
     /**
      * Register User
      *
-     * @param User $user
+     * @param User $user instance of User
+     * 
      * @return void
      */
     public function add(User $user): void
