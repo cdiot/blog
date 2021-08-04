@@ -68,7 +68,7 @@ class CommentManager extends Manager
         $req = $this->db->pdo()->prepare(
             'SELECT * FROM comments as c 
             INNER JOIN users u ON c.userId = u.id WHERE c.postId = :postId 
-            AND c.approvement = 1 ORDER BY c.createdAt DESC'
+            AND c.approvement = 1 ORDER BY c.createdAt ASC'
         );
         $req->bindValue(':postId', $postId, PDO::PARAM_INT);
         $req->execute();
