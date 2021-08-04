@@ -44,7 +44,7 @@ class SecurityController extends Controller
                     $this->request->setSession('auth',  $user->getMail());
                     $this->request->setSession('userId',  $user->getId());
                     $this->request->setSession('admin', $user->isAdmin());
-                    $this->redirect('/');
+                    $this->redirect->redirect('/');
                 }
             }
             return 'Formulaire non valide';
@@ -70,6 +70,6 @@ class SecurityController extends Controller
     {
         unset($_SESSION);
         session_destroy();
-        return $this->redirect('/login');
+        return $this->redirect->redirect('/login');
     }
 }

@@ -196,6 +196,6 @@ class User extends Entity
      */
     public function setAdmin(bool $admin): void
     {
-        $this->_isAdmin = $admin;
+        $this->_admin = $admin;
     }
 }

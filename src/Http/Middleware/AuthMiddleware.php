@@ -12,6 +12,7 @@
  */
 namespace App\Http\Middleware;
 
+use App\Http\Redirect;
 use App\Http\Request;
 
 /**
@@ -28,6 +29,7 @@ use App\Http\Request;
 class AuthMiddleware
 {
     private $_request;
+    private $_redirect;
 
     /**
      * Constructor class
@@ -35,8 +37,9 @@ class AuthMiddleware
     public function __construct()
     {
         $this->_request = new Request();
+        $this->_redirect = new Redirect;
         if (!$this->_authorize()) {
-            return header('location: /login');
+            return $this->_redirect->redirect('location: /login');
         }
     }
 

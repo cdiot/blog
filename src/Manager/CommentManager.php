@@ -109,7 +109,7 @@ class CommentManager extends Manager
     public function approve(Comment $comment): void
     {
         $req = $this->database->pdo()->prepare('UPDATE comments SET approvement = :approvement WHERE id = :id');
-        $req->bindValue(':approvement', $comment->getHasApprovement());
+        $req->bindValue(':approvement', $comment->hasApprovement());
         $req->bindValue(':id', $comment->getId(), PDO::PARAM_INT);
         $req->execute();
     }

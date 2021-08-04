@@ -88,11 +88,11 @@ class BlogController extends Controller
                 ]
             );
             $commentManager = new CommentManager();
-            if (!empty($this->request->getPost('message')) && !empty($id) && !empty($this->request->getSession('userId'))) {
+            if (!empty($this->request->getPost('message')) && !empty($postId) && !empty($this->request->getSession('userId'))) {
                 $commentManager->add($comment);
-                return $this->redirect('/posts');
+                return $this->redirect->redirect('/posts');
             }
-            return 'Formulaire non valide';
+            //return 'Formulaire non valide';
         }
     }
 }

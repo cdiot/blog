@@ -55,6 +55,13 @@ class Request
     private $_server;
 
     /**
+     * ENV
+     * 
+     * @var array
+     */
+    private $_env;
+
+    /**
      * Request constructor.
      */
     public function __construct()
@@ -63,6 +70,7 @@ class Request
         $this->_post = $_POST;
         $this->_request = $_REQUEST;
         $this->_server = $_SERVER;
+        $this->_env = $_ENV;
     }
 
     /**
@@ -147,6 +155,6 @@ class Request
      */
     public function getEnv($key)
     {
-        return getenv($key);
+        return $this->_env[$key];
     }
 }

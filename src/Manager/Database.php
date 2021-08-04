@@ -34,7 +34,7 @@ final class Database
 {
 
     private $_pdo;
-    protected $request;
+    private $_request;
     private static $_instance = null;
 
     /**
@@ -42,9 +42,9 @@ final class Database
      */
     private function __construct()
     {
-        $this->request = new Request;
+        $_request = new Request;
         try {
-            $this->_pdo = new PDO('mysql:host=' . $this->request->getEnv('HOST') . '; dbname=' . $this->request->getEnv('DB_NAME'), $this->request->getEnv('DB_USERNAME'), $this->request->getEnv('DB_PASSWORD'));
+            $this->_pdo = new PDO('mysql:host=' . $_request->getEnv('HOST') . '; dbname=' . $_request->getEnv('DB_NAME'), $_request->getEnv('DB_USERNAME'), $_request->getEnv('DB_PASSWORD'));
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
         } catch (PDOException $error) {
             return $error->getMessage();

@@ -12,6 +12,7 @@
  */
 namespace App\Controller;
 
+use App\Http\Redirect;
 use App\Http\Request;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
@@ -37,6 +38,7 @@ abstract class Controller
     public function __construct()
     {
         $this->request = new Request;
+        $this->redirect = new Redirect;
     }
 
     
@@ -59,18 +61,5 @@ abstract class Controller
         $twig->addGlobal('auth', $this->request->getSession('auth'));
         $twig->addGlobal('admin', $this->request->getSession('admin'));
         echo $twig->render($path . '.html.twig', $datas);
-    }
-
-    /**
-     * Redirect to $uri
-     *
-     * @param string $uri uri
-     *
-     * @return void
-     */
-    public static function redirect(string $uri): void
-    {
-        header("Location: $uri");
-        exit();
     }
 }

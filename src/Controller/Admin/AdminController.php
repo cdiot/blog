@@ -76,7 +76,7 @@ class AdminController extends Controller
                     ]
                 );
                 $PostManager->add($post);
-                return $this->redirect('/admin');
+                return $this->redirect->redirect('/admin');
             }
         }
     }
@@ -113,7 +113,7 @@ class AdminController extends Controller
                     ]
                 );
                 $PostManager->update($post);
-                return $this->redirect('/admin');
+                return $this->redirect->redirect('/admin');
             }
         }
     }
@@ -143,7 +143,7 @@ class AdminController extends Controller
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
             if (!empty($postId)) {
                 $this->_postManager->delete($postId);
-                return $this->redirect('/admin');
+                return $this->redirect->redirect('/admin');
             }
         }
     }
@@ -168,7 +168,7 @@ class AdminController extends Controller
                     ]
                 );
                 $commentManager->approve($comment);
-                return $this->redirect('/admin');
+                return $this->redirect->redirect('/admin');
             }
         }
     }
@@ -185,7 +185,7 @@ class AdminController extends Controller
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
             if (!empty($commentId)) {
                 $this->_commentManager->delete($commentId);
-                return $this->redirect('/admin');
+                return $this->redirect->redirect('/admin');
             }
         }
     }
