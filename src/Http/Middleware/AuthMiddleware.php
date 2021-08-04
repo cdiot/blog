@@ -37,7 +37,6 @@ class AuthMiddleware
         $this->_request = new Request();
         if (!$this->_authorize()) {
             return header('location: /login');
-            exit;
         }
     }
 

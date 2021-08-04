@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Blog Controller Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Controller;
 
 use App\Manager\PostManager;
@@ -56,44 +58,41 @@ class BlogController extends Controller
     /**
      * Show one Posts
      * 
-     * @param int $id id of post
+     * @param int $postId id of post
      * 
      * @return string
      */
-    public function show(int $id)
+    public function show(int $postId)
     {
-        $post = $this->_postManager->find($id);
-        $comments = $this->_commentManager->findByPost($id);
+        $post = $this->_postManager->find($postId);
+        $comments = $this->_commentManager->findByPost($postId);
         return $this->view('blog/show', ['post' => $post, 'comments' => $comments]);
     }
-    
+
     /**
      * Store one comment in database
      * 
-     * @param int $id id of post
+     * @param int $postId id of post
      * 
      * @return void
      */
-    public function storeComment(int $id)
+    public function storeComment(int $postId)
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
 
             $comment = new Comment(
                 [
                     'message' => $this->request->getPost('message'),
-                    'postId' => $id,
+                    'postId' => $postId,
                     'userId' => $this->request->getSession('userId')
                 ]
             );
             $commentManager = new CommentManager();
             if (!empty($this->request->getPost('message')) && !empty($id) && !empty($this->request->getSession('userId'))) {
                 $commentManager->add($comment);
-                return header('Location: /posts');
-            } else {
-                echo 'Formulaire incomplets';
+                return $this->redirect('/posts');
             }
-        } else {
-            echo 'Formulaire non valide';
+            return 'Formulaire non valide';
         }
     }
 }

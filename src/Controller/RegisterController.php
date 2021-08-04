@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Register Controller Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Controller;
 
 use App\Manager\UserManager;
@@ -49,11 +51,8 @@ class RegisterController extends Controller
             if (!empty($this->request->getPost('firstname')) && !empty($this->request->getPost('lastname')) && !empty($this->request->getPost('mail')) && !empty($this->request->getPost('password'))) {
 
                 $UserManager->add($user);
-            } else {
-                echo 'Formulaire incomplets';
             }
-        } else {
-            echo 'Formulaire non valide';
+            return 'Formulaire non valide';
         }
     }
 

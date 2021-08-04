@@ -17,6 +17,7 @@ namespace App\Manager;
 use PDO;
 use PDOException;
 use LogicException;
+use App\Http\Request;
 
 /**
  * Database Doc Comment
@@ -40,6 +41,7 @@ final class Database
      */
     private function __construct()
     {
+        $this->request = new Request;
         try {
             $this->_pdo = new PDO('mysql:host=' . $_ENV['HOST'] . '; dbname=' . $_ENV['DB_NAME'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD']);
             $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);

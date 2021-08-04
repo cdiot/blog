@@ -37,7 +37,7 @@ class CommentManager extends Manager
      */
     public function findAll(): array
     {
-        $req = $this->db->pdo()->prepare(
+        $req = $this->database->pdo()->prepare(
             'SELECT c.id, c.message, c.createdAt, c.approvement, c.postId, u.firstname, u.lastname, p.title, p.excerpt, p.publishedAt FROM comments as c
         INNER JOIN users AS u ON c.userId = u.id
         INNER JOIN posts AS p ON c.postId = p.id WHERE c.approvement = 0 
@@ -65,7 +65,7 @@ class CommentManager extends Manager
      */
     public function findByPost(int $postId): array
     {
-        $req = $this->db->pdo()->prepare(
+        $req = $this->database->pdo()->prepare(
             'SELECT * FROM comments as c 
             INNER JOIN users u ON c.userId = u.id WHERE c.postId = :postId 
             AND c.approvement = 1 ORDER BY c.createdAt ASC'
@@ -92,7 +92,7 @@ class CommentManager extends Manager
      */
     public function add(Comment $comment): void
     {
-        $req = $this->db->pdo()->prepare('INSERT INTO comments(message, createdAt, approvement, postId, userId) VALUES(:message, NOW(), 0, :postId, :userId)');
+        $req = $this->database->pdo()->prepare('INSERT INTO comments(message, createdAt, approvement, postId, userId) VALUES(:message, NOW(), 0, :postId, :userId)');
         $req->bindValue(':message', $comment->getMessage());
         $req->bindValue(':postId', $comment->getPostId(), PDO::PARAM_INT);
         $req->bindValue(':userId', $comment->getUserId(), PDO::PARAM_INT);
@@ -108,8 +108,8 @@ class CommentManager extends Manager
      */
     public function approve(Comment $comment): void
     {
-        $req = $this->db->pdo()->prepare('UPDATE comments SET approvement = :approvement WHERE id = :id');
-        $req->bindValue(':approvement', $comment->getApprovement());
+        $req = $this->database->pdo()->prepare('UPDATE comments SET approvement = :approvement WHERE id = :id');
+        $req->bindValue(':approvement', $comment->getHasApprovement());
         $req->bindValue(':id', $comment->getId(), PDO::PARAM_INT);
         $req->execute();
     }
@@ -117,12 +117,12 @@ class CommentManager extends Manager
     /**
      * Delete a Comment
      *
-     * @param int $id id of Comment
+     * @param int $commentId id of Comment
      * 
      * @return void
      */
-    public function delete(int $id): void
+    public function delete(int $commentId): void
     {
-        $this->db->pdo()->exec('DELETE FROM comments WHERE id = ' . (int) $id);
+        $this->database->pdo()->exec('DELETE FROM comments WHERE id = ' . (int) $commentId);
     }
 }

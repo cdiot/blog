@@ -25,13 +25,13 @@ namespace App\Manager;
 abstract class Manager
 {
 
-    protected $db;
+    protected $database;
 
     /**
      * Constructor class
      */
     public function __construct()
     {
-        $this->db = Database::getInstance();
+        $this->database = Database::getInstance();
     }
 }

@@ -46,7 +46,7 @@ abstract class Controller
      * @param string $path  Path to pass
      * @param array  $datas Datas to pass
      * 
-     * @return void
+     * @return [type]
      */
     public function view(string $path, array $datas = [])
     {
@@ -59,5 +59,18 @@ abstract class Controller
         $twig->addGlobal('auth', $this->request->getSession('auth'));
         $twig->addGlobal('admin', $this->request->getSession('admin'));
         echo $twig->render($path . '.html.twig', $datas);
+    }
+
+    /**
+     * Redirect to $uri
+     *
+     * @param string $uri uri
+     *
+     * @return void
+     */
+    public static function redirect(string $uri): void
+    {
+        header("Location: $uri");
+        exit();
     }
 }

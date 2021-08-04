@@ -36,8 +36,7 @@ class AdminMiddleware
     {
         $this->_request = new Request();
         if (!$this->_authorize()) {
-            echo 'You cannot access this page. Access forbidden';
-            exit;
+            return 'You cannot access this page. Access forbidden';
         }
     }
 

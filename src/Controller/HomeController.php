@@ -70,8 +70,8 @@ class HomeController extends Controller
               </html>
               ';
             mail("christopher.diot5@gmail.com", "Prise de contact via le formulaire", $message, $header);
-            echo "envoie confirmer";
-            return header('Location: /');
+
+            return $this->redirect('/');
         }
     }
 }

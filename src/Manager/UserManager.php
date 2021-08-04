@@ -39,7 +39,7 @@ class UserManager extends Manager
      */
     public function findOneByMail($mail)
     {
-        $req = $this->db->pdo()->prepare('SELECT * FROM users WHERE mail = :mail');
+        $req = $this->database->pdo()->prepare('SELECT * FROM users WHERE mail = :mail');
         $req->bindValue(':mail', $mail);
         $req->execute();
         $req->setFetchMode(PDO::FETCH_PROPS_LATE);
@@ -58,7 +58,7 @@ class UserManager extends Manager
      */
     public function add(User $user): void
     {
-        $req = $this->db->pdo()->prepare('INSERT INTO users(firstname, lastname, mail, password, role) VALUES(:firstname, :lastname, :mail, :password, 0)');
+        $req = $this->database->pdo()->prepare('INSERT INTO users(firstname, lastname, mail, password, role) VALUES(:firstname, :lastname, :mail, :password, 0)');
         $req->bindValue(':firstname', $user->getFirstname());
         $req->bindValue(':lastname', $user->getLastname());
         $req->bindValue(':mail', $user->getMail());

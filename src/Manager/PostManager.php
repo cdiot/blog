@@ -38,7 +38,7 @@ class PostManager extends Manager
      */
     public function findAll(): array
     {
-        $req = $this->db->pdo()->prepare(
+        $req = $this->database->pdo()->prepare(
             'SELECT * FROM posts as p ORDER BY p.publishedAt DESC'
         );
         $req->execute();
@@ -54,18 +54,18 @@ class PostManager extends Manager
     /**
      * Return one Post
      *
-     * @param int $id id of Post
+     * @param int $postId id of Post
      * 
      * @return object|bool
      */
-    public function find(int $id): object
+    public function find(int $postId): object
     {
-        $req = $this->db->pdo()->prepare(
+        $req = $this->database->pdo()->prepare(
             'SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname, u.lastname
             FROM posts as p 
             INNER JOIN users as u ON p.userId = u.id WHERE p.id = :id'
         );
-        $req->bindValue(':id', (int) $id, PDO::PARAM_INT);
+        $req->bindValue(':id', (int) $postId, PDO::PARAM_INT);
         $req->execute();
         $req->setFetchMode(PDO::FETCH_PROPS_LATE);
         $postData = $req->fetch();
@@ -85,7 +85,7 @@ class PostManager extends Manager
      */
     public function add(Post $post): void
     {
-        $req = $this->db->pdo()->prepare('INSERT INTO posts(title, excerpt, content, publishedAt, userId) VALUES(:title, :excerpt, :content, NOW(), :userId)');
+        $req = $this->database->pdo()->prepare('INSERT INTO posts(title, excerpt, content, publishedAt, userId) VALUES(:title, :excerpt, :content, NOW(), :userId)');
         $req->bindValue(':title', $post->getTitle());
         $req->bindValue(':excerpt', $post->getExcerpt());
         $req->bindValue(':content', $post->getContent());
@@ -102,7 +102,7 @@ class PostManager extends Manager
      */
     public function update(Post $post): void
     {
-        $req = $this->db->pdo()->prepare('UPDATE posts SET title = :title, excerpt = :excerpt, content = :content, publishedAt = NOW() , userId = :userId WHERE id = :id');
+        $req = $this->database->pdo()->prepare('UPDATE posts SET title = :title, excerpt = :excerpt, content = :content, publishedAt = NOW() , userId = :userId WHERE id = :id');
         $req->bindValue(':title', $post->getTitle());
         $req->bindValue(':excerpt', $post->getExcerpt());
         $req->bindValue(':content', $post->getContent());
@@ -114,12 +114,12 @@ class PostManager extends Manager
     /**
      * Delete a Post
      *
-     * @param int $id id of Post
+     * @param int $postId id of Post
      * 
      * @return void
      */
-    public function delete(int $id): void
+    public function delete(int $postId): void
     {
-        $this->db->pdo()->exec('DELETE FROM posts WHERE id = ' . (int) $id);
+        $this->database->pdo()->exec('DELETE FROM posts WHERE id = ' . (int) $postId);
     }
 }

@@ -91,13 +91,13 @@ class Post extends Entity
     /**
      * Set id of Post
      * 
-     * @param int $id id of Post
+     * @param int $postId id of Post
      * 
      * @return void
      */
-    public function setId(int $id): void
+    public function setId(int $postId): void
     {
-        $this->_id = (int) $id;
+        $this->_id = (int) $postId;
     }
 
     /**

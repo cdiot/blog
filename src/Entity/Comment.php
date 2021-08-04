@@ -98,13 +98,13 @@ class Comment extends Entity
     /**
      * Set id of Comment
      * 
-     * @param int $id id of Comment
+     * @param int $commentId id of Comment
      * 
      * @return void
      */
-    public function setId(int $id): void
+    public function setId(int $commentId): void
     {
-        $this->_id = (int) $id;
+        $this->_id = (int) $commentId;
     }
 
     /**
@@ -156,7 +156,7 @@ class Comment extends Entity
      * 
      * @return bool
      */
-    public function getApprovement(): bool
+    public function getHasApprovement(): bool
     {
         return $this->_approvement;
     }
@@ -168,7 +168,7 @@ class Comment extends Entity
      * 
      * @return void
      */
-    public function setApprovement(bool $approvement): void
+    public function setHasApprovement(bool $approvement): void
     {
         $this->_approvement = $approvement;
     }

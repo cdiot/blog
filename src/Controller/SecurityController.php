@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Security Controller Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Controller;
 
 use App\Manager\UserManager;
@@ -32,23 +34,20 @@ class SecurityController extends Controller
      * 
      * @return [type]
      */
-    public function login() 
+    public function login()
     {
-        if (isset($_POST['mail'])) {
+        if (null !== $this->request->getPost('mail')) {
             $UserManager = new UserManager();
-            $user = $UserManager->findOneByMail($_POST['mail']);
+            $user = $UserManager->findOneByMail($this->request->getPost('mail'));
             if ($user) {
                 if (password_verify($this->request->getPost('password'), $user->getPassword())) {
                     $this->request->setSession('auth',  $user->getMail());
                     $this->request->setSession('userId',  $user->getId());
-                    $this->request->setSession('admin', $user->getRole());
-                    return header('Location: /');
-                } else {
-                    echo 'Mot de passe incorrect';
+                    $this->request->setSession('admin', $user->getIsAdmin());
+                    $this->redirect('/');
                 }
-            } else {
-                echo 'Adresse Mail incorrect';
             }
+            return 'Formulaire non valide';
         }
     }
 
@@ -71,6 +70,6 @@ class SecurityController extends Controller
     {
         unset($_SESSION);
         session_destroy();
-        return header('Location: /');
+        return $this->redirect('/login');
     }
 }

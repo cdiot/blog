@@ -45,7 +45,7 @@
 		<div class="col-md-6 pt-5">
 			<h2>Liste des commentaires à valider</h2>
 			{% for comment in comments %}
-				{% if comment.getApprovement() == 0 %}
+				{% if comment.getHasApprovement() == 0 %}
 					<div class="card mb-3">
 						<div class="card-body">
 							<span>Article concerné :<br></span>

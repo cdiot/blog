@@ -76,7 +76,7 @@ class AdminController extends Controller
                     ]
                 );
                 $PostManager->add($post);
-                return header('Location: /admin');
+                return $this->redirect('/admin');
             }
         }
     }
@@ -94,18 +94,18 @@ class AdminController extends Controller
     /**
      * Allow to modify one post
      * 
-     * @param int $id id of the post 
+     * @param int $postId id of the post 
      * 
      * @return [type]
      */
-    public function modify(int $id)
+    public function modify(int $postId)
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
             if (!empty($this->request->getPost('title')) && !empty($this->request->getPost('excerpt')) && !empty($this->request->getPost('content'))) {
                 $PostManager = new PostManager();
                 $post = new Post(
                     [
-                    'id' => $id,
+                    'id' => $postId,
                     'title' => $this->request->getPost('title'),
                     'excerpt' => $this->request->getPost('excerpt'),
                     'content' => $this->request->getPost('content'),
@@ -113,7 +113,7 @@ class AdminController extends Controller
                     ]
                 );
                 $PostManager->update($post);
-                return header('Location: /admin');
+                return $this->redirect('/admin');
             }
         }
     }
@@ -121,29 +121,29 @@ class AdminController extends Controller
     /**
      * Show modify form
      * 
-     * @param int $id id of the post
+     * @param int $postId id of the post
      * 
      * @return [type]
      */
-    public function displayModifyForm(int $id)
+    public function displayModifyForm(int $postId)
     {
-        $post = $this->_postManager->find($id);
+        $post = $this->_postManager->find($postId);
         return $this->view('admin/update', ['post' => $post]);
     }
 
     /**
      * Allow to delete one post
      * 
-     * @param int $id id of the post
+     * @param int $postId id of the post
      * 
      * @return [type]
      */
-    public function delete(int $id)
+    public function delete(int $postId)
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
-            if (!empty($id)) {
-                $this->_postManager->delete($id);
-                return header('Location: /admin');
+            if (!empty($postId)) {
+                $this->_postManager->delete($postId);
+                return $this->redirect('/admin');
             }
         }
     }
@@ -151,24 +151,24 @@ class AdminController extends Controller
     /**
      * Allow to approve one comment
      * 
-     * @param int $id id of the comment
+     * @param int $commentId id of the comment
      * 
      * @return [type]
      */
-    public function approve(int $id)
+    public function approve(int $commentId)
     {
 
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
-            if (!empty($id)) {
+            if (!empty($commentId)) {
                 $commentManager = new CommentManager();
                 $comment = new Comment(
                     [
-                    'id' => $id,
+                    'id' => $commentId,
                     'approvement' => 1
                     ]
                 );
                 $commentManager->approve($comment);
-                return header('Location: /admin');
+                return $this->redirect('/admin');
             }
         }
     }
@@ -176,16 +176,16 @@ class AdminController extends Controller
     /**
      * Allow to delete one comment
      * 
-     * @param int $id id of the comment
+     * @param int $commentId id of the comment
      * 
      * @return [type]
      */
-    public function deleteComment(int $id)
+    public function deleteComment(int $commentId)
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
-            if (!empty($id)) {
-                $this->_commentManager->delete($id);
-                return header('Location: /admin');
+            if (!empty($commentId)) {
+                $this->_commentManager->delete($commentId);
+                return $this->redirect('/admin');
             }
         }
     }
