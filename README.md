@@ -30,7 +30,7 @@ composer install
 
 ### Base De Données
 
-To install the database, doawload the file at this adress ```blog.sql``` and copy the contents of the file to a blank database of your DBMS ```blog.sql``` found in the bdd folder at the root of the project.
+To install the database, download the file at this adress ```https://drive.google.com/file/d/17rbvdUG6wfYbHFj8Ft9sY6x2fqXTMS6U/view?usp=sharing``` and copy the contents of the file to a blank database of your DBMS named ```blog```.
 
 You can configure environment variables by renaming the .env.example file to
 .env and enter your database login credentials.

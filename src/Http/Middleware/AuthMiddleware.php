@@ -39,7 +39,8 @@ class AuthMiddleware
         $this->_request = new Request();
         $this->_redirect = new Redirect;
         if (!$this->_authorize()) {
-            return $this->_redirect->redirect('location: /login');
+            echo 'You cannot access this page. Access forbidden';
+            exit;
         }
     }
 

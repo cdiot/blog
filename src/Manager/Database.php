@@ -34,7 +34,6 @@ final class Database
 {
 
     private $_pdo;
-    private $_request;
     private static $_instance = null;
 
     /**

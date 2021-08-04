@@ -41,9 +41,9 @@ class SecurityController extends Controller
             $user = $UserManager->findOneByMail($this->request->getPost('mail'));
             if ($user) {
                 if (password_verify($this->request->getPost('password'), $user->getPassword())) {
+                    $this->request->setSession('admin', $user->isAdmin());                   
                     $this->request->setSession('auth',  $user->getMail());
                     $this->request->setSession('userId',  $user->getId());
-                    $this->request->setSession('admin', $user->isAdmin());
                     $this->redirect->redirect('/');
                 }
             }
