@@ -12,6 +12,7 @@
  */
 namespace App\Http\Middleware;
 
+use App\Routing\Exception\RouteNotFoundException;
 use App\Http\Request;
 
 /**
@@ -36,8 +37,7 @@ class AdminMiddleware
     {
         $this->_request = new Request();
         if (!$this->_authorize()) {
-            echo 'You cannot access this page. Access forbidden';
-            exit;
+            throw new RouteNotFoundException("Access forbidden.");
         }
     }
 

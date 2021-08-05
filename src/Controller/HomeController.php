@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Home Controller Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Controller;
 
 /**
@@ -44,11 +46,14 @@ class HomeController extends Controller
     public function sendMail()
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
-
             $firstname = $this->request->getPost('firstname');
             $lastname = $this->request->getPost('lastname');
             $mail = filter_var($this->request->getPost('mail'), FILTER_VALIDATE_EMAIL);
             $subject = $this->request->getPost('subject');
+
+            if (empty($this->request->getPost('firstname')) || empty($this->request->getPost('lastname')) || empty($this->request->getPost('mail')) || empty($this->request->getPost('subject'))) {
+                throw new \Exception("Tous les champs ne sont pas remplis.");
+            }
 
             // Ecrit et envoie l'email  
             $header  = "MIME-Version: 1.0\r\n";

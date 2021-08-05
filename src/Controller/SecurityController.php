@@ -36,6 +36,9 @@ class SecurityController extends Controller
      */
     public function login()
     {
+        if (empty($this->request->getPost('mail'))  || empty($this->request->getPost('password'))) {
+            throw new \Exception("Tous les champs ne sont pas remplis.");
+        }
         if (null !== $this->request->getPost('mail')) {
             $UserManager = new UserManager();
             $user = $UserManager->findOneByMail($this->request->getPost('mail'));
@@ -47,7 +50,6 @@ class SecurityController extends Controller
                     $this->redirect->redirect('/');
                 }
             }
-            return 'Formulaire non valide';
         }
     }
 

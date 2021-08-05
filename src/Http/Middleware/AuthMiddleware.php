@@ -12,7 +12,7 @@
  */
 namespace App\Http\Middleware;
 
-use App\Http\Redirect;
+use App\Routing\Exception\RouteNotFoundException;
 use App\Http\Request;
 
 /**
@@ -29,7 +29,6 @@ use App\Http\Request;
 class AuthMiddleware
 {
     private $_request;
-    private $_redirect;
 
     /**
      * Constructor class
@@ -37,10 +36,8 @@ class AuthMiddleware
     public function __construct()
     {
         $this->_request = new Request();
-        $this->_redirect = new Redirect;
         if (!$this->_authorize()) {
-            echo 'You cannot access this page. Access forbidden';
-            exit;
+            throw new RouteNotFoundException("Access forbidden.");
         }
     }
 

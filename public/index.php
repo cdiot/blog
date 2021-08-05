@@ -36,4 +36,6 @@ try {
     $router->getCompiledRoutes();
 } catch (RouteNotFoundException $e) {
     return $e->error404();
+} catch (\Exception $e) {
+    echo $e->getMessage();
 }

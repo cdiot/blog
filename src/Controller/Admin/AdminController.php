@@ -65,7 +65,9 @@ class AdminController extends Controller
     public function insert()
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
-            if (!empty($this->request->getPost('title')) && !empty($this->request->getPost('excerpt')) && !empty($this->request->getPost('content'))) {
+            if (empty($this->request->getPost('title')) || empty($this->request->getPost('excerpt')) || empty($this->request->getPost('content'))) {
+                throw new \Exception("Tous les champs ne sont pas remplis.");
+            }
                 $PostManager = new PostManager();
                 $post = new Post(
                     [
@@ -77,7 +79,7 @@ class AdminController extends Controller
                 );
                 $PostManager->add($post);
                 return $this->redirect->redirect('/admin');
-            }
+            
         }
     }
 
@@ -101,7 +103,9 @@ class AdminController extends Controller
     public function modify(int $postId)
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
-            if (!empty($this->request->getPost('title')) && !empty($this->request->getPost('excerpt')) && !empty($this->request->getPost('content'))) {
+            if (empty($this->request->getPost('title')) || empty($this->request->getPost('excerpt')) || empty($this->request->getPost('content'))) {
+                throw new \Exception("Tous les champs ne sont pas remplis.");
+            }
                 $PostManager = new PostManager();
                 $post = new Post(
                     [
@@ -113,8 +117,8 @@ class AdminController extends Controller
                     ]
                 );
                 $PostManager->update($post);
-                return $this->redirect->redirect('/admin');
-            }
+
+                return $this->redirect->redirect('/admin');  
         }
     }
 

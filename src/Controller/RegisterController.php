@@ -38,6 +38,9 @@ class RegisterController extends Controller
     public function register()
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
+            if (empty($this->request->getPost('firstname')) || empty($this->request->getPost('lastname')) || empty($this->request->getPost('mail')) || empty($this->request->getPost('password'))) {
+                throw new \Exception("Tous les champs ne sont pas remplis.");
+            }
             $UserManager = new UserManager();
 
             $user = new User(
@@ -48,10 +51,7 @@ class RegisterController extends Controller
                     'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
                 ]
             );
-            if (!empty($this->request->getPost('firstname')) && !empty($this->request->getPost('lastname')) && !empty($this->request->getPost('mail')) && !empty($this->request->getPost('password'))) {
-
                 $UserManager->add($user);
-            }
             return 'Formulaire non valide';
         }
     }
