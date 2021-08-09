@@ -11,7 +11,7 @@
 			<small class="text-info">Mise à jour le
 				{{ post.getPublishedAt()|date("d/m/Y") }}
 				Par
-				{{ post.getAuthor().getFirstname() }} {{ post.getAuthor().getLastname() }}</small>
+				{{ post.getAuthor() }}</small>
 			<p>{{ post.getExcerpt() }}</p>
 			<p>{{ post.getContent() }}</p>
 			<a href="/posts" class="btn btn-secondary">Retourner en arrière</a>

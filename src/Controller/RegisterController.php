@@ -33,7 +33,7 @@ class RegisterController extends Controller
     /**
      * Allow to register
      * 
-     * @return [type]
+     * @return void
      */
     public function register()
     {
@@ -41,17 +41,20 @@ class RegisterController extends Controller
             if (empty($this->request->getPost('firstname')) || empty($this->request->getPost('lastname')) || empty($this->request->getPost('mail')) || empty($this->request->getPost('password'))) {
                 throw new \Exception("Tous les champs ne sont pas remplis.");
             }
+            if (!filter_var($this->request->getPost('mail'), FILTER_VALIDATE_EMAIL)) {
+                throw new \Exception("Email non valide.");
+            }
             $UserManager = new UserManager();
 
             $user = new User(
                 [
                     'firstname' => $this->request->getPost('firstname'),
                     'lastname' => $this->request->getPost('lastname'),
-                    'mail' => filter_var($this->request->getPost('mail'), FILTER_VALIDATE_EMAIL),
+                    'mail' => $this->request->getPost('mail'),
                     'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
                 ]
             );
-                $UserManager->add($user);
+            $UserManager->add($user);
             return 'Formulaire non valide';
         }
     }
@@ -59,7 +62,7 @@ class RegisterController extends Controller
     /**
      * Show register form
      * 
-     * @return [type]
+     * @return string
      */
     public function displayRegisterForm()
     {

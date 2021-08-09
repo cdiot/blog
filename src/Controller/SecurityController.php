@@ -32,23 +32,24 @@ class SecurityController extends Controller
     /**
      * Allow to login
      * 
-     * @return [type]
+     * @return void
      */
     public function login()
     {
         if (empty($this->request->getPost('mail'))  || empty($this->request->getPost('password'))) {
             throw new \Exception("Tous les champs ne sont pas remplis.");
         }
-        if (null !== $this->request->getPost('mail')) {
+        if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
             $UserManager = new UserManager();
             $user = $UserManager->findOneByMail($this->request->getPost('mail'));
+            if (!password_verify($this->request->getPost('password'), $user->getPassword())) {
+                throw new \Exception("Mauvais mot de passe ou adresse mail");
+            }
             if ($user) {
-                if (password_verify($this->request->getPost('password'), $user->getPassword())) {
-                    $this->request->setSession('admin', $user->isAdmin());                   
-                    $this->request->setSession('auth',  $user->getMail());
-                    $this->request->setSession('userId',  $user->getId());
-                    $this->redirect->redirect('/');
-                }
+                $this->request->setSession('admin', $user->isAdmin());
+                $this->request->setSession('auth',  $user->getMail());
+                $this->request->setSession('userId',  $user->getId());
+                $this->redirect->redirect('/');
             }
         }
     }
@@ -56,7 +57,7 @@ class SecurityController extends Controller
     /**
      * Show login form
      * 
-     * @return [type]
+     * @return string
      */
     public function displayLoginForm()
     {
@@ -66,7 +67,7 @@ class SecurityController extends Controller
     /**
      * Allow to logout
      * 
-     * @return [type]
+     * @return void
      */
     public function logout()
     {

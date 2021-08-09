@@ -79,6 +79,7 @@ class BlogController extends Controller
     public function storeComment(int $postId)
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
+
             if (empty($this->request->getPost('message')) || empty($postId) || empty($this->request->getSession('userId'))) {
                 throw new \Exception("Tous les champs ne sont pas remplis.");
             }
@@ -90,8 +91,8 @@ class BlogController extends Controller
                 ]
             );
             $commentManager = new CommentManager();
-                $commentManager->add($comment);
-                return $this->redirect->redirect('/posts');
+            $commentManager->add($comment);
+            return $this->redirect->redirect('/posts');
         }
     }
 }

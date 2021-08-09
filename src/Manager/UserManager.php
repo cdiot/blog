@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User Manager Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Manager;
 
 use App\Entity\User;
@@ -31,7 +33,7 @@ class UserManager extends Manager
 {
 
     /**
-     * Return a user found thanks to his email
+     * Find a user found thanks to his email
      *
      * @param $mail mail of User
      * 

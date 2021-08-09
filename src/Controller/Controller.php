@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Controller Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Controller;
 
 use App\Http\Redirect;
@@ -41,21 +43,22 @@ abstract class Controller
         $this->redirect = new Redirect;
     }
 
-    
+
     /**
      * Rendezr view
      *  
      * @param string $path  Path to pass
      * @param array  $datas Datas to pass
      * 
-     * @return [type]
+     * @return string
      */
     public function view(string $path, array $datas = [])
     {
         $loader = new FilesystemLoader('../templates');
         $twig = new Environment(
-            $loader, [
-            'cache' => false,
+            $loader,
+            [
+                'cache' => false,
             ]
         );
         $twig->addGlobal('auth', $this->request->getSession('auth'));

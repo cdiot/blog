@@ -44,6 +44,13 @@ class Post extends Entity
     private $_title;
 
     /**
+     * Post's author
+     * 
+     * @var string
+     */
+    private $_author;
+
+    /**
      * Except of Post
      * 
      * @var string
@@ -70,13 +77,6 @@ class Post extends Entity
      * @var int
      */
     private $_userId;
-    
-    /**
-     * Post's author
-     * 
-     * @var User
-     */
-    private $_author;
 
     /**
      * Get id of Post
@@ -120,6 +120,28 @@ class Post extends Entity
     public function setTitle(string $title): void
     {
         $this->_title = $title;
+    }
+
+    /**
+     * Get author of Post
+     * 
+     * @return string
+     */
+    public function getAuthor(): string
+    {
+        return $this->_author;
+    }
+
+    /**
+     * Set author of Post
+     * 
+     * @param string $author author of Post
+     * 
+     * @return void
+     */
+    public function setAuthor(string $author): void
+    {
+        $this->_author = $author;
     }
 
     /**
@@ -208,27 +230,5 @@ class Post extends Entity
     public function setUserId(int $userId): void
     {
         $this->_userId = $userId;
-    }
-
-    /**
-     * Get author of Post
-     * 
-     * @return User
-     */
-    public function getAuthor(): User
-    {
-        return $this->_author;
-    }
-
-    /**
-     * Set author of Post
-     * 
-     * @param User $user user of Post
-     * 
-     * @return void
-     */
-    public function setAuthor(User $user)
-    {
-        $this->_author = $user;
     }
 }
