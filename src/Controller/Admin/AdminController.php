@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Admin Controller Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Controller\Admin;
 
 use App\Controller\Controller;
@@ -48,7 +50,7 @@ class AdminController extends Controller
     /**
      * Show admin panel
      *  
-     * @return [type]
+     * @return string
      */
     public function index()
     {
@@ -60,7 +62,7 @@ class AdminController extends Controller
     /**
      * Allow to insert post
      * 
-     * @return [type]
+     * @return void
      */
     public function insert()
     {
@@ -68,25 +70,24 @@ class AdminController extends Controller
             if (empty($this->request->getPost('title')) || empty($this->request->getPost('excerpt')) || empty($this->request->getPost('content'))) {
                 throw new \Exception("Tous les champs ne sont pas remplis.");
             }
-                $PostManager = new PostManager();
-                $post = new Post(
-                    [
+            $PostManager = new PostManager();
+            $post = new Post(
+                [
                     'title' => $this->request->getPost('title'),
                     'excerpt' => $this->request->getPost('excerpt'),
                     'content' => $this->request->getPost('content'),
                     'userId' => $this->request->getSession('userId')
-                    ]
-                );
-                $PostManager->add($post);
-                return $this->redirect->redirect('/admin');
-            
+                ]
+            );
+            $PostManager->add($post);
+            return $this->redirect->redirect('/admin');
         }
     }
 
     /**
      * Show insert one form
      * 
-     * @return [type]
+     * @return string
      */
     public function displayInsertForm()
     {
@@ -98,7 +99,7 @@ class AdminController extends Controller
      * 
      * @param int $postId id of the post 
      * 
-     * @return [type]
+     * @return void
      */
     public function modify(int $postId)
     {
@@ -106,19 +107,19 @@ class AdminController extends Controller
             if (empty($this->request->getPost('title')) || empty($this->request->getPost('excerpt')) || empty($this->request->getPost('content'))) {
                 throw new \Exception("Tous les champs ne sont pas remplis.");
             }
-                $PostManager = new PostManager();
-                $post = new Post(
-                    [
+            $PostManager = new PostManager();
+            $post = new Post(
+                [
                     'id' => $postId,
                     'title' => $this->request->getPost('title'),
                     'excerpt' => $this->request->getPost('excerpt'),
                     'content' => $this->request->getPost('content'),
                     'userId' => $this->request->getSession('userId')
-                    ]
-                );
-                $PostManager->update($post);
+                ]
+            );
+            $PostManager->update($post);
 
-                return $this->redirect->redirect('/admin');  
+            return $this->redirect->redirect('/admin');
         }
     }
 
@@ -127,7 +128,7 @@ class AdminController extends Controller
      * 
      * @param int $postId id of the post
      * 
-     * @return [type]
+     * @return string
      */
     public function displayModifyForm(int $postId)
     {
@@ -140,7 +141,7 @@ class AdminController extends Controller
      * 
      * @param int $postId id of the post
      * 
-     * @return [type]
+     * @return void
      */
     public function delete(int $postId)
     {
@@ -157,7 +158,7 @@ class AdminController extends Controller
      * 
      * @param int $commentId id of the comment
      * 
-     * @return [type]
+     * @return void
      */
     public function approve(int $commentId)
     {
@@ -167,8 +168,8 @@ class AdminController extends Controller
                 $commentManager = new CommentManager();
                 $comment = new Comment(
                     [
-                    'id' => $commentId,
-                    'approvement' => 1
+                        'id' => $commentId,
+                        'approvement' => 1
                     ]
                 );
                 $commentManager->approve($comment);
@@ -182,7 +183,7 @@ class AdminController extends Controller
      * 
      * @param int $commentId id of the comment
      * 
-     * @return [type]
+     * @return void
      */
     public function deleteComment(int $commentId)
     {

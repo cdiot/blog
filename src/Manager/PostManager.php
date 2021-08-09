@@ -32,7 +32,7 @@ class PostManager extends Manager
 {
 
     /**
-     * Return all Posts
+     * Find all Posts
      * 
      * @return array
      */
@@ -52,25 +52,22 @@ class PostManager extends Manager
     }
 
     /**
-     * Return one Post
+     * Find one Post
      *
      * @param int $postId id of Post
      * 
      * @return object|bool
      */
-    public function find(int $postId): object
+    public function find(int $postId)
     {
         $req = $this->database->pdo()->prepare(
-            'SELECT p.id, p.title, p.excerpt, p.content, p.publishedAt, u.firstname, u.lastname
-            FROM posts as p 
-            INNER JOIN users as u ON p.userId = u.id WHERE p.id = :id'
+            'SELECT p.id, p.title, p.author, p.excerpt, p.content, p.publishedAt
+            FROM posts as p WHERE p.id = :id'
         );
         $req->bindValue(':id', (int) $postId, PDO::PARAM_INT);
         $req->execute();
         $req->setFetchMode(PDO::FETCH_PROPS_LATE);
         $postData = $req->fetch();
-        $user = new User(['firstname' => $postData['firstname'], 'lastname' => $postData['lastname']]);
-        $postData['author'] = $user;
         $post = new Post($postData);
 
         return $post;
@@ -85,8 +82,9 @@ class PostManager extends Manager
      */
     public function add(Post $post): void
     {
-        $req = $this->database->pdo()->prepare('INSERT INTO posts(title, excerpt, content, publishedAt, userId) VALUES(:title, :excerpt, :content, NOW(), :userId)');
+        $req = $this->database->pdo()->prepare('INSERT INTO posts(title, author, excerpt, content, publishedAt, userId) VALUES(:title, author, :excerpt, :content, NOW(), :userId)');
         $req->bindValue(':title', $post->getTitle());
+        $req->bindValue(':author', $post->getAuthor());
         $req->bindValue(':excerpt', $post->getExcerpt());
         $req->bindValue(':content', $post->getContent());
         $req->bindValue(':userId', $post->getUserId());
@@ -102,8 +100,9 @@ class PostManager extends Manager
      */
     public function update(Post $post): void
     {
-        $req = $this->database->pdo()->prepare('UPDATE posts SET title = :title, excerpt = :excerpt, content = :content, publishedAt = NOW() , userId = :userId WHERE id = :id');
+        $req = $this->database->pdo()->prepare('UPDATE posts SET title = :title, author = :author, excerpt = :excerpt, content = :content, publishedAt = NOW() , userId = :userId WHERE id = :id');
         $req->bindValue(':title', $post->getTitle());
+        $req->bindValue(':author', $post->getAuthor());
         $req->bindValue(':excerpt', $post->getExcerpt());
         $req->bindValue(':content', $post->getContent());
         $req->bindValue(':userId', $post->getUserId());

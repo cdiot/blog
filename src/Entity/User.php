@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User Entity Doc Comment
  * 
@@ -10,6 +11,7 @@
  * @license  https://opensource.org/licenses/MIT MIT License
  * @link     https://github.com/cdiot/blog
  */
+
 namespace App\Entity;
 
 /**
@@ -160,7 +162,7 @@ class User extends Entity
      * 
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->_password;
     }

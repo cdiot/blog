@@ -31,7 +31,7 @@ class HomeController extends Controller
     /**
      * Show default page
      * 
-     * @return [type]
+     * @return string
      */
     public function index()
     {
@@ -41,23 +41,27 @@ class HomeController extends Controller
     /**
      * Send Mail 
      * 
-     * @return [type]
+     * @return void
      */
     public function sendMail()
     {
         if ($this->request->getServer('REQUEST_METHOD') == 'POST') {
             $firstname = $this->request->getPost('firstname');
             $lastname = $this->request->getPost('lastname');
-            $mail = filter_var($this->request->getPost('mail'), FILTER_VALIDATE_EMAIL);
+            $mail = $this->request->getPost('mail');
             $subject = $this->request->getPost('subject');
 
             if (empty($this->request->getPost('firstname')) || empty($this->request->getPost('lastname')) || empty($this->request->getPost('mail')) || empty($this->request->getPost('subject'))) {
                 throw new \Exception("Tous les champs ne sont pas remplis.");
             }
 
+            if (!filter_var($this->request->getPost('mail'), FILTER_VALIDATE_EMAIL)) {
+                throw new \Exception("Email non valide.");
+            }
+
             // Ecrit et envoie l'email  
             $header  = "MIME-Version: 1.0\r\n";
-            $header .= 'From: "blog.online"<christopher.diot5@gmail.com>' . "\n";
+            $header .= 'From: "blog.online"<' . $this->request->getEnv('MAIL') . '>' . "\n";
             $header .= 'Content-Type:text/html; charset="utf-8"' . "\n";
             $header .= 'Content-Transfer-Encoding: 8bit';
             $message = '
@@ -74,7 +78,7 @@ class HomeController extends Controller
               </body>
               </html>
               ';
-            mail("christopher.diot5@gmail.com", "Prise de contact via le formulaire", $message, $header);
+            mail($this->request->getEnv('MAIL'), "Prise de contact via le formulaire", $message, $header);
 
             return $this->redirect->redirect('/');
         }
